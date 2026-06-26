@@ -1,0 +1,120 @@
+{
+  "brand": {
+    "name": "한:Pick",
+    "tagline": "한국의 좋은 제품, 전 세계로",
+    "heroTitle": "한국이 사랑하는 제품, 이제 집으로.",
+    "heroSubtitle": "한국에서 만든 인기 제품을 엄선했어요. 진짜 리뷰, 투명한 원산지, 해외 배송.",
+    "heroCta": "인기 TOP 20 보기"
+  },
+  "nav": {
+    "home": "홈",
+    "categories": "카테고리",
+    "cart": "장바구니",
+    "search": "검색"
+  },
+  "section": {
+    "topRanking": "이번 주 TOP 20",
+    "topRankingSub": "한국 소비자들의 인기를 기준으로 정했어요",
+    "browseCategories": "카테고리로 보기",
+    "fastShip": "빠른 해외 배송",
+    "fastShipSub": "가볍고 보내기 좋은 제품 — 48시간 내 출고",
+    "trending": "지금 뜨는 제품",
+    "allProducts": "전체 상품",
+    "reviews": "리뷰",
+    "youMayAlsoLike": "이런 상품은 어떠세요",
+    "frequentlyBought": "함께 많이 담는 상품"
+  },
+  "product": {
+    "madeInKorea": "한국 제조",
+    "origin": "생산지",
+    "weight": "무게",
+    "brand": "브랜드",
+    "rank": "{{n}}위",
+    "reviews": "리뷰 {{n}}개",
+    "addToCart": "장바구니 담기",
+    "buyNow": "바로 구매",
+    "addedToCart": "장바구니에 담았어요",
+    "inStock": "재고 있음",
+    "shipsTo": "배송 가능 지역",
+    "off": "{{n}}% 할인",
+    "trendUp": "이번 주 +{{n}}%",
+    "selectQty": "수량"
+  },
+  "category": {
+    "all": "전체",
+    "beauty": "K-뷰티",
+    "food": "K-푸드",
+    "lifestyle": "생활",
+    "stationery": "문구",
+    "tech": "IT 액세서리"
+  },
+  "zone": {
+    "KR": "대한민국",
+    "US": "미국",
+    "CN": "중국",
+    "JP": "일본",
+    "EU": "유럽",
+    "SEA": "동남아시아",
+    "GLOBAL": "전 세계"
+  },
+  "tag": {
+    "vegan": "비건",
+    "halal": "할랄 인증",
+    "exportFriendly": "수출 적합",
+    "bestseller": "베스트셀러",
+    "newArrival": "신상품",
+    "awardWinner": "수상작"
+  },
+  "shipping": {
+    "title": "고객님의 국가로 배송",
+    "estimate": "예상",
+    "deliveryEstimate": "{{min}}–{{max}} 영업일",
+    "calcFor": "{{zone}} 기준",
+    "perOrder": "주문별 묶음 배송",
+    "freeOver": "₩{{n}} 이상 무료 배송",
+    "basedOnWeight": "총 무게 기준"
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어 있어요",
+    "emptySub": "한국에서 가장 사랑받는 제품을 찾아 담아보세요.",
+    "browse": "상품 둘러보기",
+    "subtotal": "소계",
+    "shipping": "배송비",
+    "shippingTo": "{{zone}} 배송",
+    "changeCountry": "국가 변경",
+    "total": "합계",
+    "checkout": "결제하기",
+    "item": "개",
+    "items": "개",
+    "qty": "수량",
+    "remove": "삭제",
+    "placeOrder": "주문하기",
+    "orderPlaced": "주문이 완료되었어요!",
+    "orderPlacedSub": "한국의 만든 이들을 응원해주셔서 감사합니다. (데모 — 실제 결제는 진행되지 않습니다.)",
+    "continueShopping": "쇼핑 계속하기",
+    "freeShipping": "무료 배송"
+  },
+  "settings": {
+    "language": "언어",
+    "currency": "통화",
+    "country": "국가"
+  },
+  "filter": {
+    "title": "필터",
+    "sort": "정렬",
+    "sortByRank": "인기순",
+    "sortByPriceLow": "낮은 가격순",
+    "sortByPriceHigh": "높은 가격순",
+    "sortByRating": "평점순",
+    "priceRange": "가격대",
+    "apply": "적용",
+    "reset": "초기화",
+    "results": "상품 {{n}}개"
+  },
+  "common": {
+    "back": "뒤로",
+    "seeAll": "전체 보기",
+    "from": "부터"
+  }
+}

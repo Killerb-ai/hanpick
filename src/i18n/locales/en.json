@@ -1,0 +1,120 @@
+{
+  "brand": {
+    "name": "Han:Pick",
+    "tagline": "Korean Products, Worldwide",
+    "heroTitle": "What Korea loves — now ships to you.",
+    "heroSubtitle": "A curated edit of popular, Made-in-Korea goods. Real reviews, honest origins, worldwide shipping.",
+    "heroCta": "Explore Top 20"
+  },
+  "nav": {
+    "home": "Home",
+    "categories": "Categories",
+    "cart": "Cart",
+    "search": "Search"
+  },
+  "section": {
+    "topRanking": "This Week's Top 20",
+    "topRankingSub": "Ranked by popularity across Korean shoppers",
+    "browseCategories": "Browse by category",
+    "fastShip": "Fast international shipping",
+    "fastShipSub": "Compact, export-friendly items — dispatched within 48 hours",
+    "trending": "Trending now",
+    "allProducts": "All products",
+    "reviews": "Reviews",
+    "youMayAlsoLike": "You may also like",
+    "frequentlyBought": "Frequently bought together"
+  },
+  "product": {
+    "madeInKorea": "Made in Korea",
+    "origin": "Origin",
+    "weight": "Weight",
+    "brand": "Brand",
+    "rank": "Rank #{{n}}",
+    "reviews": "{{n}} reviews",
+    "addToCart": "Add to cart",
+    "buyNow": "Buy now",
+    "addedToCart": "Added to cart",
+    "inStock": "In stock",
+    "shipsTo": "Ships to",
+    "off": "{{n}}% OFF",
+    "trendUp": "+{{n}}% this week",
+    "selectQty": "Quantity"
+  },
+  "category": {
+    "all": "All",
+    "beauty": "K-Beauty",
+    "food": "K-Food",
+    "lifestyle": "Lifestyle",
+    "stationery": "Stationery",
+    "tech": "Tech Accessories"
+  },
+  "zone": {
+    "KR": "South Korea",
+    "US": "United States",
+    "CN": "China",
+    "JP": "Japan",
+    "EU": "Europe",
+    "SEA": "Southeast Asia",
+    "GLOBAL": "Worldwide"
+  },
+  "tag": {
+    "vegan": "Vegan",
+    "halal": "Halal-certified",
+    "exportFriendly": "Export-friendly",
+    "bestseller": "Bestseller",
+    "newArrival": "New arrival",
+    "awardWinner": "Award winner"
+  },
+  "shipping": {
+    "title": "Shipping to your country",
+    "estimate": "Estimate",
+    "deliveryEstimate": "{{min}}–{{max}} business days",
+    "calcFor": "Calculated for {{zone}}",
+    "perOrder": "Per order, combined shipping",
+    "freeOver": "Free shipping over ₩{{n}}",
+    "basedOnWeight": "Based on total weight"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "emptySub": "Discover Korea's most-loved products and add your favorites.",
+    "browse": "Browse products",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "shippingTo": "Shipping to {{zone}}",
+    "changeCountry": "Change country",
+    "total": "Total",
+    "checkout": "Checkout",
+    "item": "item",
+    "items": "items",
+    "qty": "Qty",
+    "remove": "Remove",
+    "placeOrder": "Place order",
+    "orderPlaced": "Order placed!",
+    "orderPlacedSub": "Thank you for supporting Korean makers. (Demo — no payment was processed.)",
+    "continueShopping": "Continue shopping",
+    "freeShipping": "Free shipping"
+  },
+  "settings": {
+    "language": "Language",
+    "currency": "Currency",
+    "country": "Country"
+  },
+  "filter": {
+    "title": "Filters",
+    "sort": "Sort",
+    "sortByRank": "Popularity",
+    "sortByPriceLow": "Price: low to high",
+    "sortByPriceHigh": "Price: high to low",
+    "sortByRating": "Top rated",
+    "priceRange": "Price range",
+    "apply": "Apply",
+    "reset": "Reset",
+    "results": "{{n}} products"
+  },
+  "common": {
+    "back": "Back",
+    "seeAll": "See all",
+    "from": "from"
+  }
+}

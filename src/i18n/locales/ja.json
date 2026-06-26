@@ -1,0 +1,120 @@
+{
+  "brand": {
+    "name": "Han:Pick",
+    "tagline": "韓国の品物を、世界中へ",
+    "heroTitle": "韓国で愛されている品物を、お届けします。",
+    "heroSubtitle": "韓国製の人気アイテムを厳選。リアルなレビュー、透明な原産地、世界配送。",
+    "heroCta": "トップ20を見る"
+  },
+  "nav": {
+    "home": "ホーム",
+    "categories": "カテゴリー",
+    "cart": "カート",
+    "search": "検索"
+  },
+  "section": {
+    "topRanking": "今週のトップ20",
+    "topRankingSub": "韓国の買い手の人気で集計",
+    "browseCategories": "カテゴリーから探す",
+    "fastShip": "海外へスピード配送",
+    "fastShipSub": "軽くて送りやすいアイテム——48時間以内に出荷",
+    "trending": "いま人気",
+    "allProducts": "すべての商品",
+    "reviews": "レビュー",
+    "youMayAlsoLike": "こちらもおすすめ",
+    "frequentlyBought": "よく一緒に買われる商品"
+  },
+  "product": {
+    "madeInKorea": "韓国製",
+    "origin": "原産地",
+    "weight": "重量",
+    "brand": "ブランド",
+    "rank": "第{{n}}位",
+    "reviews": "レビュー{{n}}件",
+    "addToCart": "カートに追加",
+    "buyNow": "今すぐ購入",
+    "addedToCart": "カートに追加しました",
+    "inStock": "在庫あり",
+    "shipsTo": "配送可能地域",
+    "off": "{{n}}%OFF",
+    "trendUp": "今週+{{n}}%",
+    "selectQty": "数量"
+  },
+  "category": {
+    "all": "すべて",
+    "beauty": "K-ビューティー",
+    "food": "K-フード",
+    "lifestyle": "ライフスタイル",
+    "stationery": "文房具",
+    "tech": "テック雑貨"
+  },
+  "zone": {
+    "KR": "韓国",
+    "US": "アメリカ",
+    "CN": "中国",
+    "JP": "日本",
+    "EU": "ヨーロッパ",
+    "SEA": "東南アジア",
+    "GLOBAL": "世界中"
+  },
+  "tag": {
+    "vegan": "ヴィーガン",
+    "halal": "ハラール認証",
+    "exportFriendly": "輸出向け",
+    "bestseller": "ベストセラー",
+    "newArrival": "新着",
+    "awardWinner": "受賞品"
+  },
+  "shipping": {
+    "title": "お届け先の国への配送",
+    "estimate": "目安",
+    "deliveryEstimate": "{{min}}～{{max}}営業日",
+    "calcFor": "{{zone}}向けの計算",
+    "perOrder": "1注文あたりのまとめて送料",
+    "freeOver": "₩{{n}}以上で送料無料",
+    "basedOnWeight": "総重量に基づく"
+  },
+  "cart": {
+    "title": "ショッピングカート",
+    "empty": "カートは空です",
+    "emptySub": "韓国で一番人気の商品を見つけて、お気に入りを追加しましょう。",
+    "browse": "商品を見る",
+    "subtotal": "小計",
+    "shipping": "送料",
+    "shippingTo": "{{zone}}への配送",
+    "changeCountry": "国を変更",
+    "total": "合計",
+    "checkout": "購入手続き",
+    "item": "点",
+    "items": "点",
+    "qty": "数量",
+    "remove": "削除",
+    "placeOrder": "注文を確定する",
+    "orderPlaced": "ご注文ありがとうございます！",
+    "orderPlacedSub": "韓国の作り手を応援いただきありがとうございます。（デモです。実際の決済は行われません。）",
+    "continueShopping": "買い物を続ける",
+    "freeShipping": "送料無料"
+  },
+  "settings": {
+    "language": "言語",
+    "currency": "通貨",
+    "country": "国"
+  },
+  "filter": {
+    "title": "絞り込み",
+    "sort": "並び替え",
+    "sortByRank": "人気順",
+    "sortByPriceLow": "価格が安い順",
+    "sortByPriceHigh": "価格が高い順",
+    "sortByRating": "評価が高い順",
+    "priceRange": "価格帯",
+    "apply": "適用",
+    "reset": "リセット",
+    "results": "{{n}}件"
+  },
+  "common": {
+    "back": "戻る",
+    "seeAll": "すべて見る",
+    "from": "から"
+  }
+}

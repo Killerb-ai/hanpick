@@ -1,0 +1,120 @@
+{
+  "brand": {
+    "name": "Han:Pick",
+    "tagline": "韩国好物，全球直达",
+    "heroTitle": "韩国人爱买的好物，现在直送您身边。",
+    "heroSubtitle": "精选韩国制造的人气商品。真实评价、产地透明、全球配送。",
+    "heroCta": "查看热销前20名"
+  },
+  "nav": {
+    "home": "首页",
+    "categories": "分类",
+    "cart": "购物车",
+    "search": "搜索"
+  },
+  "section": {
+    "topRanking": "本周热销前20",
+    "topRankingSub": "依据韩国消费者的喜爱程度排名",
+    "browseCategories": "按分类浏览",
+    "fastShip": "国际快速配送",
+    "fastShipSub": "轻巧易出口的好物——48小时内发货",
+    "trending": "正在热卖",
+    "allProducts": "全部商品",
+    "reviews": "用户评价",
+    "youMayAlsoLike": "你可能也喜欢",
+    "frequentlyBought": "经常一起购买"
+  },
+  "product": {
+    "madeInKorea": "韩国制造",
+    "origin": "产地",
+    "weight": "重量",
+    "brand": "品牌",
+    "rank": "第 {{n}} 名",
+    "reviews": "{{n}} 条评价",
+    "addToCart": "加入购物车",
+    "buyNow": "立即购买",
+    "addedToCart": "已加入购物车",
+    "inStock": "有货",
+    "shipsTo": "可配送至",
+    "off": "优惠 {{n}}%",
+    "trendUp": "本周 +{{n}}%",
+    "selectQty": "数量"
+  },
+  "category": {
+    "all": "全部",
+    "beauty": "韩妆",
+    "food": "韩食",
+    "lifestyle": "生活家居",
+    "stationery": "文具",
+    "tech": "数码配件"
+  },
+  "zone": {
+    "KR": "韩国",
+    "US": "美国",
+    "CN": "中国",
+    "JP": "日本",
+    "EU": "欧洲",
+    "SEA": "东南亚",
+    "GLOBAL": "全球"
+  },
+  "tag": {
+    "vegan": "纯素",
+    "halal": "清真认证",
+    "exportFriendly": "便于出口",
+    "bestseller": "畅销品",
+    "newArrival": "新品",
+    "awardWinner": "获奖产品"
+  },
+  "shipping": {
+    "title": "配送到您的国家",
+    "estimate": "预估",
+    "deliveryEstimate": "{{min}}–{{max}} 个工作日",
+    "calcFor": "按 {{zone}} 计算",
+    "perOrder": "按单合并运费",
+    "freeOver": "满 ₩{{n}} 免运费",
+    "basedOnWeight": "按总重量计算"
+  },
+  "cart": {
+    "title": "您的购物车",
+    "empty": "购物车是空的",
+    "emptySub": "发现韩国最受欢迎的商品，加入您的心头好。",
+    "browse": "去逛逛",
+    "subtotal": "小计",
+    "shipping": "运费",
+    "shippingTo": "配送至 {{zone}}",
+    "changeCountry": "更换国家",
+    "total": "总计",
+    "checkout": "结账",
+    "item": "件商品",
+    "items": "件商品",
+    "qty": "数量",
+    "remove": "删除",
+    "placeOrder": "提交订单",
+    "orderPlaced": "订单已提交！",
+    "orderPlacedSub": "感谢您支持韩国制造者。（演示——未进行任何真实付款。）",
+    "continueShopping": "继续购物",
+    "freeShipping": "免运费"
+  },
+  "settings": {
+    "language": "语言",
+    "currency": "货币",
+    "country": "国家/地区"
+  },
+  "filter": {
+    "title": "筛选",
+    "sort": "排序",
+    "sortByRank": "人气优先",
+    "sortByPriceLow": "价格从低到高",
+    "sortByPriceHigh": "价格从高到低",
+    "sortByRating": "评分最高",
+    "priceRange": "价格区间",
+    "apply": "应用",
+    "reset": "重置",
+    "results": "{{n}} 件商品"
+  },
+  "common": {
+    "back": "返回",
+    "seeAll": "查看全部",
+    "from": "起"
+  }
+}
