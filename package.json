@@ -6,7 +6,9 @@
   "description": "Han:Pick — Pilot marketplace for popular Korean-made products with international shipping",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/postbuild.mjs",
+    "prebuild": "rm -rf dist",
+    "deploy": "npm run build",
     "preview": "vite preview --host"
   },
   "dependencies": {
