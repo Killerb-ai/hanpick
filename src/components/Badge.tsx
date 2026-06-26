@@ -22,15 +22,14 @@ export function Badge({
   return <span className={`chip ${VARIANTS[variant]} ${className}`}>{children}</span>;
 }
 
-/** The signature trust badge — Made in Korea. */
 export function MadeInKoreaBadge({ small = false }: { small?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full bg-coral px-2.5 py-1 font-bold text-white ${
+      className={`inline-flex items-center rounded-md bg-ink px-2 py-1 font-bold text-white ${
         small ? 'text-[10px]' : 'text-xs'
       }`}
     >
-      <span aria-hidden>●</span> K-Made
+      K-Made
     </span>
   );
 }

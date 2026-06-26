@@ -2,13 +2,13 @@
   "brand": {
     "name": "Han:Pick",
     "tagline": "Korean Products, Worldwide",
-    "heroTitle": "What Korea loves — now ships to you.",
-    "heroSubtitle": "A curated edit of popular, Made-in-Korea goods. Real reviews, honest origins, worldwide shipping.",
+    "heroTitle": "Real Korean picks, packed for overseas carts.",
+    "heroSubtitle": "Browse actual product photos, verified origins and shipping-ready weights.",
     "heroCta": "Explore Top 20"
   },
   "nav": {
     "home": "Home",
-    "categories": "Categories",
+    "categories": "Shop",
     "cart": "Cart",
     "search": "Search"
   },
@@ -17,7 +17,7 @@
     "topRankingSub": "Ranked by popularity across Korean shoppers",
     "browseCategories": "Browse by category",
     "fastShip": "Fast international shipping",
-    "fastShipSub": "Compact, export-friendly items — dispatched within 48 hours",
+    "fastShipSub": "Compact, export-friendly items dispatched within 48 hours",
     "trending": "Trending now",
     "allProducts": "All products",
     "reviews": "Reviews",
@@ -33,10 +33,10 @@
     "reviews": "{{n}} reviews",
     "addToCart": "Add to cart",
     "buyNow": "Buy now",
-    "addedToCart": "Added to cart",
+    "addedToCart": "Added",
     "inStock": "In stock",
     "shipsTo": "Ships to",
-    "off": "{{n}}% OFF",
+    "off": "{{n}}% off",
     "trendUp": "+{{n}}% this week",
     "selectQty": "Quantity"
   },
@@ -46,7 +46,7 @@
     "food": "K-Food",
     "lifestyle": "Lifestyle",
     "stationery": "Stationery",
-    "tech": "Tech Accessories"
+    "tech": "Tech"
   },
   "zone": {
     "KR": "South Korea",
@@ -68,10 +68,10 @@
   "shipping": {
     "title": "Shipping to your country",
     "estimate": "Estimate",
-    "deliveryEstimate": "{{min}}–{{max}} business days",
+    "deliveryEstimate": "{{min}}-{{max}} business days",
     "calcFor": "Calculated for {{zone}}",
     "perOrder": "Per order, combined shipping",
-    "freeOver": "Free shipping over ₩{{n}}",
+    "freeOver": "Free shipping over {{n}}",
     "basedOnWeight": "Based on total weight"
   },
   "cart": {
@@ -91,7 +91,7 @@
     "remove": "Remove",
     "placeOrder": "Place order",
     "orderPlaced": "Order placed!",
-    "orderPlacedSub": "Thank you for supporting Korean makers. (Demo — no payment was processed.)",
+    "orderPlacedSub": "Demo checkout. No payment was processed.",
     "continueShopping": "Continue shopping",
     "freeShipping": "Free shipping"
   },

@@ -4,7 +4,6 @@ import { useSettings } from '@/store/settings';
 import { LOCALE_LABELS, SUPPORTED_LOCALES } from '@/i18n';
 import type { Currency, ShippingZone } from '@/types';
 
-/** Slide-up sheet to change language / currency / shipping country. */
 export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const { locale, currency, shipZone, setLocale, setCurrency, setShipZone } = useSettings();
@@ -17,11 +16,10 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-app animate-fade-in-up rounded-t-3xl bg-paper p-5 pb-8 shadow-float">
+      <div className="relative z-10 w-full max-w-app animate-fade-in-up rounded-t-lg bg-paper p-5 pb-8 shadow-float">
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-stone-200" />
-        <h2 className="mb-4 text-lg font-bold">{t('nav.search') === 'Search' ? 'Settings' : t('settings.language')}</h2>
+        <h2 className="mb-4 text-lg font-bold">Settings</h2>
 
-        {/* Language */}
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-400">
           {t('settings.language')}
         </p>
@@ -30,7 +28,7 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
             <button
               key={l}
               onClick={() => setLocale(l)}
-              className={`rounded-xl border px-2 py-2.5 text-sm font-medium transition ${
+              className={`rounded-lg border px-2 py-2.5 text-sm font-medium transition ${
                 locale === l
                   ? 'border-coral bg-coral-50 text-coral-700'
                   : 'border-stone-200 bg-paper text-stone-600'
@@ -41,7 +39,6 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
           ))}
         </div>
 
-        {/* Currency */}
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-400">
           {t('settings.currency')}
         </p>
@@ -50,7 +47,7 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
             <button
               key={c}
               onClick={() => setCurrency(c)}
-              className={`rounded-xl border px-2 py-2.5 text-sm font-medium transition ${
+              className={`rounded-lg border px-2 py-2.5 text-sm font-medium transition ${
                 currency === c
                   ? 'border-coral bg-coral-50 text-coral-700'
                   : 'border-stone-200 bg-paper text-stone-600'
@@ -61,7 +58,6 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
           ))}
         </div>
 
-        {/* Shipping country */}
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-400">
           {t('settings.country')}
         </p>
@@ -70,7 +66,7 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
             <button
               key={z}
               onClick={() => setShipZone(z)}
-              className={`rounded-xl border px-3 py-2.5 text-sm font-medium transition ${
+              className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition ${
                 shipZone === z
                   ? 'border-coral bg-coral-50 text-coral-700'
                   : 'border-stone-200 bg-paper text-stone-600'
@@ -89,7 +85,6 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
   );
 }
 
-/** Convenience hook to drive the drawer from any component. */
 export function useSettingsDrawer() {
   const [open, setOpen] = useState(false);
   return { open, openDrawer: () => setOpen(true), closeDrawer: () => setOpen(false) };

@@ -1,80 +1,34 @@
-import type { Product, ShippingZone } from '@/types';
-
-/**
- * Curated pilot dataset — Top 20 popular, Made-in-Korea products.
- *
- * NOTE: This is realistic *synthetic* data modeled on the kinds of items that
- * rank highly on Korean open-marketplaces (Naver Smart Store, etc.). Brand names
- * reference real Korean makers but images are keyword-based placeholders (no real
- * brand logos) and prices/reviews are illustrative. To go live, replace this
- * module with an adapter that fetches real store data while keeping the same
- * `Product` shape.
- */
+import type { LocalizedString, Product, ShippingZone } from '@/types';
 
 const ALL: ShippingZone[] = ['KR', 'JP', 'CN', 'SEA', 'US', 'EU', 'GLOBAL'];
 
-// Keyword-based placeholder images (deterministic, no brand logos).
-const img = (q: string, n = 1) =>
-  Array.from({ length: n }, (_, i) =>
-    `https://images.unsplash.com/photo-${placeholderId(q, i)}?auto=format&fit=crop&w=900&q=70`
-  );
+const text = (en: string, ko = en): LocalizedString => ({
+  en,
+  zh: en,
+  ja: en,
+  ko
+});
 
-// Map a keyword to a stable Unsplash photo id so images are consistent per product.
-// These are curated real Unsplash photo IDs covering the product themes.
-function placeholderId(_q: string, i: number): string {
-  const pool: string[] = [
-    '1556228720-195a672e8a03', // skincare bottle
-    '1571781926291-c477ebfd024b', // cosmetics flatlay
-    '1596462502278-27bfdc403348', // sunscreen
-    '1620916566398-39f1143ab7be', // ramyeon
-    '1610632365340-72c4f2cefb1f', // snacks
-    '1559598467-f8b76c8155d0', // coffee
-    '1583394838336-acd977736f90', // food packaging
-    '1523275335684-37898b6baf30', // product white bg
-    '1505740420928-5e560c06d30e', // headphones
-    '1572635196237-14b3f281503f', // sunglasses
-    '1585155770447-0f416cf6a788', // kitchen container
-    '1611532736597-de2d4265fba3', // stationery
-    '1456735190827-d1262f71b8a3', // notebook
-    '1517423440428-a5a00ad493e8', // cup
-    '1606101205839-9c7c1d4e1c0c' // phone case
-  ];
-  return pool[i % pool.length];
-}
+const reviewText = text;
 
 export const PRODUCTS: Product[] = [
-  // ---------------- K-BEAUTY ----------------
   {
     id: 'cream-skin-refiner',
     rank: 1,
     category: 'beauty',
-    name: {
-      en: 'Cream Skin Toner & Moisturizer',
-      zh: '牛奶水面霜合一滋润乳',
-      ja: 'クリームスキン トナー＆モイスチャライザー',
-      ko: '크림 스킨 카밍 포 데이 토너'
-    },
-    shortDesc: {
-      en: 'A cult-favorite milky toner that doubles as a lightweight moisturizer.',
-      zh: '热销牛奶质地化妆水，兼具轻薄保湿乳功效。',
-      ja: 'ミルク状の化粧水。軽い保湿クリームとしても使える定番品。',
-      ko: '우유 같은 토너로 보습까지 채워주는 스테디셀러.'
-    },
-    description: {
-      en: 'Inspired by the Korean "cream-in-water" technique, this toner-meets-moisturizer leaves skin plump and calm. Gentle enough for daily use and a consistent bestseller in Korea.',
-      zh: '灵感来自韩国“水乳合一”技术，化妆水兼具保湿功效，令肌肤饱满舒缓。温和适合日常使用，韩国长期畅销品。',
-      ja: '韓国発の「水にクリーム」発想。化粧水＋保湿の役割で、肌をふっくら落ち着かせます。韓国で長く愛される定番品。',
-      ko: '물에 크림을 녹인 듯한 발상의 토너. 보습과 진정을 동시에 채워주는 한국의 스테디셀러입니다.'
-    },
+    name: text('LANEIGE Cream Skin Cerapeptide Refiner 170ml', '라네즈 크림 스킨 세라펩타이드 리파이너 170ml'),
+    shortDesc: text(
+      'A milky barrier toner with a cream-in-skin finish.',
+      '크림을 녹인 듯한 보습감의 장벽 토너.'
+    ),
+    description: text(
+      'A lightweight toner-refiner built around ceramide and peptide care. It is a recognizable K-beauty staple for shoppers who want a calm, hydrated finish without a heavy cream layer.',
+      '세라마이드와 펩타이드 케어를 담은 가벼운 토너 리파이너입니다. 무겁지 않은 보습감과 편안한 마무리로 해외 K-뷰티 고객에게 익숙한 대표 상품입니다.'
+    ),
     priceKRW: 26000,
     originalPriceKRW: 33000,
-    brand: 'Lanieux',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do',
-      zh: '韩国制造 — 京畿道',
-      ja: '韓国製 — 京畿道',
-      ko: '한국 제조 — 경기도'
-    },
+    brand: 'LANEIGE',
+    origin: text('Made in Korea - Gyeonggi-do', '한국 제조 - 경기도'),
     weightGrams: 220,
     rating: 4.8,
     reviewCount: 18420,
@@ -84,12 +38,10 @@ export const PRODUCTS: Product[] = [
         author: 'Mika T.',
         country: 'JP',
         rating: 5,
-        text: {
-          en: 'Finally my skin feels hydrated all day. Light and not sticky.',
-          zh: '终于能整天保湿，轻薄不黏腻。',
-          ja: '一日しっとり。軽くてベタつかないです。',
-          ko: '하루 종일 촉촉해요. 가볍고 끈적이지 않아요.'
-        },
+        text: reviewText(
+          'My skin feels hydrated all day. Light and not sticky.',
+          '하루 종일 피부가 촉촉해요. 가볍고 끈적이지 않습니다.'
+        ),
         date: '2026-05-18'
       },
       {
@@ -97,239 +49,39 @@ export const PRODUCTS: Product[] = [
         author: 'Sarah L.',
         country: 'US',
         rating: 5,
-        text: {
-          en: 'The toner I keep repurchasing. Worth shipping overseas.',
-          zh: '无限回购的化妆水，值得海淘。',
-          ja: 'リピートしている化粧水。海外配送でも買う価値あり。',
-          ko: '계속 재구매하는 토너예요. 해외 배송도 감수할 만해요.'
-        },
+        text: reviewText(
+          'The toner I keep repurchasing. Worth shipping overseas.',
+          '계속 재구매하는 토너예요. 해외 배송비를 내도 만족합니다.'
+        ),
         date: '2026-05-02'
       }
     ],
-    images: img('skincare', 3),
+    images: [
+      'https://us.laneige.com/cdn/shop/files/1080x10800_Thumbnail_Product.jpg?v=1739393277',
+      'https://www.kiseki.ca/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/l/a/laneige_cream_skin_cerapeptide_refiner0.jpg',
+      'https://www.kiseki.ca/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/l/a/laneige_cream_skin_cerapeptide_refiner1.jpg'
+    ],
     tags: ['bestseller', 'exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 14
   },
   {
-    id: 'sun-cushion-aqua',
-    rank: 4,
-    category: 'beauty',
-    name: {
-      en: 'Aqua Sun Cushion SPF50+',
-      zh: '水感防晒气垫 SPF50+',
-      ja: 'アクアサンクッション SPF50+',
-      ko: '수분 선 쿠션 SPF50+'
-    },
-    shortDesc: {
-      en: 'Cooling, dewy-finish sun cushion — the K-beauty summer essential.',
-      zh: '冰凉水润防晒气垫，韩妆夏日必备。',
-      ja: 'ひんやり潤いのサンクッション。韓国の夏の必須品。',
-      ko: '시원하고 촉촉한 선 쿠션, K-뷰티 여름 필수템.'
-    },
-    description: {
-      en: 'A tap-on cushion that delivers SPF50+ protection with a cooling, dewy glow. The format that put Korean sunscreens on the global map.',
-      zh: '轻拍即可SPF50+防晒，带来冰凉水润光泽。让韩系防晒走向世界的形态。',
-      ja: 'ポンポンとSPF50+対応。ひんやりツヤ仕上げのサンクッション。',
-      ko: '톡톡 두드려 SPF50+ 차단. 시원하고 윤기 나는 선 쿠션.'
-    },
-    priceKRW: 21000,
-    originalPriceKRW: 26000,
-    brand: 'Dr. Jee',
-    origin: {
-      en: 'Made in Korea — Chungcheongbuk-do',
-      zh: '韩国制造 — 忠清北道',
-      ja: '韓国製 — 忠清北道',
-      ko: '한국 제조 — 충청북도'
-    },
-    weightGrams: 90,
-    rating: 4.7,
-    reviewCount: 12760,
-    reviews: [
-      {
-        id: 'r1',
-        author: 'Wei C.',
-        country: 'CN',
-        rating: 5,
-        text: {
-          en: 'No white cast at all. I buy three at a time.',
-          zh: '完全不泛白，一次买三个。',
-          ja: '白浮きしない。まとめ買いしています。',
-          ko: '백탁이 전혀 없어요. 세 개씩 사요.'
-        },
-        date: '2026-05-22'
-      }
-    ],
-    images: img('sunscreen', 3),
-    tags: ['bestseller', 'vegan', 'exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 9
-  },
-  {
-    id: 'lip-tint-velvet',
-    rank: 7,
-    category: 'beauty',
-    name: {
-      en: 'Velvet Matte Lip Tint Set (3 shades)',
-      zh: '丝绒哑光唇釉套装（3色）',
-      ja: 'ベルベットマット リップティント 3色セット',
-      ko: '벨벳 매트 립 틴트 3종 세트'
-    },
-    shortDesc: {
-      en: 'Transfer-resistant matte tint in three K-trending shades.',
-      zh: '不沾杯哑光唇釉，3款韩国流行色。',
-      ja: '落ちにくいマットティント、韓国発の3色。',
-      ko: '묻어남 적은 매트 틴트, 한국 트렌드 3색.'
-    },
-    description: {
-      en: 'The matte lip formula that defined the K-beauty lip look — soft-matte, long-wearing, in three of this season’s most-requested shades.',
-      zh: '定义韩系唇妆的哑光配方——柔雾持久，本季最热门的三色。',
-      ja: '韓国リップの代名詞的なマット処方。今季人気の3色。',
-      ko: 'K-뷰티 립의 상징, 매트 제형. 이번 시즌 가장 인기 있는 3색.'
-    },
-    priceKRW: 24000,
-    brand: 'Tonymory',
-    origin: {
-      en: 'Made in Korea — Seoul',
-      zh: '韩国制造 — 首尔',
-      ja: '韓国製 — ソウル',
-      ko: '한국 제조 — 서울'
-    },
-    weightGrams: 60,
-    rating: 4.6,
-    reviewCount: 9840,
-    reviews: [],
-    images: img('lipstick', 3),
-    tags: ['bestseller', 'exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 6
-  },
-  {
-    id: 'snail-essence',
-    rank: 11,
-    category: 'beauty',
-    name: {
-      en: 'Advanced Snail Essence 96',
-      zh: '高级蜗牛精华96',
-      ja: 'アドバンスド スネール エッセンス 96',
-      ko: '스네일 에센스 96'
-    },
-    shortDesc: {
-      en: 'The legendary 96% snail mucin repair essence.',
-      zh: '传奇96%蜗牛精华，修护肌肤。',
-      ja: '伝説の96%スネールエッセンス。',
-      ko: '96% 스네일 점액 수복 에센스.'
-    },
-    description: {
-      en: 'A lightweight essence famous worldwide for soothing and repairing. The single product most associated with Korean skincare abroad.',
-      zh: '轻薄精华，以镇定修护闻名全球。海外最具代表性的韩系护肤单品。',
-      ja: '肌を落ち着かせ修復する軽いエッセンス。海外で最も知られる韓国スキンケア。',
-      ko: '진정과 수복으로 세계적인 인기의 에센스. 해외에서 한국 스킨케어를 대표하는 제품.'
-    },
-    priceKRW: 18000,
-    originalPriceKRW: 23000,
-    brand: 'Cosrux',
-    origin: {
-      en: 'Made in Korea — Gyeongsangbuk-do',
-      zh: '韩国制造 — 庆尚北道',
-      ja: '韓国製 — 慶尚北道',
-      ko: '한국 제조 — 경상북도'
-    },
-    weightGrams: 110,
-    rating: 4.9,
-    reviewCount: 26210,
-    reviews: [
-      {
-        id: 'r1',
-        author: 'Anna K.',
-        country: 'EU',
-        rating: 5,
-        text: {
-          en: 'Calmed my redness in a week. Repurchased four times.',
-          zh: '一周内退红，已经回购四次。',
-          ja: '1週間で赤みが落ち着き。4回リピート。',
-          ko: '일주일 만에 진정. 네 번째 재구매.'
-        },
-        date: '2026-04-30'
-      }
-    ],
-    images: img('essence', 3),
-    tags: ['bestseller', 'vegan'],
-    shippingZones: ALL,
-    weeklyTrend: 11
-  },
-  {
-    id: 'cica-soothing-gel',
-    rank: 15,
-    category: 'beauty',
-    name: {
-      en: 'Centella Soothing Gel Tube',
-      zh: '积雪草舒缓凝胶管',
-      ja: 'センテラ 鎮静ジェル',
-      ko: '시카 카밍 젤 튜브'
-    },
-    shortDesc: {
-      en: 'Multi-use cica gel for face and body, the Korean all-rounder.',
-      zh: '脸身两用的积雪草凝胶，韩国万能胶。',
-      ja: '顔も体も使えるセンテラジェル。',
-      ko: '얼굴·바디 다용도 시카 젤.'
-    },
-    description: {
-      en: 'A pocket-sized tube of calming centella gel — perfect for travel and one of Korea’s most practical everyday staples.',
-      zh: '便携积雪草凝胶，旅行首选，韩国最实用的日常必备。',
-      ja: '持ち運び便利なセンテラジェル。韓国の実用的な定番。',
-      ko: '휴대하기 좋은 시카 젤. 한국에서 가장 실용적인 일상템.'
-    },
-    priceKRW: 9900,
-    brand: 'Dr. Jee',
-    origin: {
-      en: 'Made in Korea — Chungcheongbuk-do',
-      zh: '韩国制造 — 忠清北道',
-      ja: '韓国製 — 忠清北道',
-      ko: '한국 제조 — 충청북도'
-    },
-    weightGrams: 80,
-    rating: 4.5,
-    reviewCount: 6210,
-    reviews: [],
-    images: img('gel', 2),
-    tags: ['exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 4
-  },
-
-  // ---------------- K-FOOD ----------------
-  {
     id: 'choco-pie-family',
     rank: 2,
     category: 'food',
-    name: {
-      en: 'Choco Pie Family Pack (60pcs)',
-      zh: '巧克力派家庭装（60枚）',
-      ja: 'チョコパイ ファミリーパック（60個）',
-      ko: '초코파이 가족分享装（60개）'
-    },
-    shortDesc: {
-      en: 'The original Korean marshmallow choco pie, loved in 60+ countries.',
-      zh: '韩国原创棉花糖巧克力派，热销60多国。',
-      ja: '韓国発のマシュマロチョコパイ、60カ国以上で愛用。',
-      ko: '한국 원조 마시멜로 초코파이, 60개국에서 사랑.'
-    },
-    description: {
-      en: 'Soft cake, fluffy marshmallow, a thin chocolate shell — the snack Korea exported to the world. A perennial gift and homesick favorite.',
-      zh: '松软蛋糕、绵密棉花糖、薄巧克力壳——韩国出口世界的国民零食。',
-      ja: 'ふわふわケーキとマシュマロ、薄いチョコ。韓国が世界に輸出した定番おやつ。',
-      ko: '부드러운 케이크, 마시멜로, 얇은 초코. 한국이 세계로 수출한 국민 간식.'
-    },
+    name: text('Orion Choco Pie Original Family Pack', '오리온 초코파이 오리지널 패밀리팩'),
+    shortDesc: text(
+      'The Korean marshmallow cake snack loved worldwide.',
+      '전 세계에서 사랑받는 한국식 마시멜로 케이크 스낵.'
+    ),
+    description: text(
+      'Soft cake, marshmallow center and a thin chocolate coating. This family-size pack is light enough for international shipping and familiar enough to become an easy gift.',
+      '부드러운 케이크와 마시멜로, 얇은 초콜릿 코팅이 어우러진 한국 대표 간식입니다. 가족팩 구성으로 선물용과 간식용 모두에 잘 맞습니다.'
+    ),
     priceKRW: 19900,
     originalPriceKRW: 25000,
     brand: 'Orion',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do, Icheon',
-      zh: '韩国制造 — 京畿道利川',
-      ja: '韓国製 — 京畿道 利川',
-      ko: '한국 제조 — 경기도 이천'
-    },
+    origin: text('Made in Korea - Gyeonggi-do, Icheon', '한국 제조 - 경기도 이천'),
     weightGrams: 1100,
     rating: 4.9,
     reviewCount: 22340,
@@ -339,210 +91,39 @@ export const PRODUCTS: Product[] = [
         author: 'Linh N.',
         country: 'SEA',
         rating: 5,
-        text: {
-          en: 'Tastes exactly like I remember from Korea. Will order again.',
-          zh: '和在韩国吃到的一模一样，还会再买。',
-          ja: '韓国で食べた味そのもの。また頼みます。',
-          ko: '한국에서 먹던 그 맛 그대로예요. 또 주문할게요.'
-        },
+        text: reviewText(
+          'Tastes exactly like I remember from Korea. Will order again.',
+          '한국에서 먹던 그 맛이에요. 다시 주문할게요.'
+        ),
         date: '2026-05-11'
       }
     ],
-    images: img('snacks', 3),
+    images: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/ORION_-_Choco_Pie.jpg/960px-ORION_-_Choco_Pie.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Orion-Choco-Pie-1.jpg/500px-Orion-Choco-Pie-1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/ORION_CHOCO_PIE_CHINA_VERSION_%283%29.jpg/960px-ORION_CHOCO_PIE_CHINA_VERSION_%283%29.jpg'
+    ],
     tags: ['bestseller', 'halal', 'exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 8
   },
   {
-    id: 'shin-ramyun-bundle',
-    rank: 5,
-    category: 'food',
-    name: {
-      en: 'Shin Ramyun Bundle (20 packs)',
-      zh: '辛拉面组合装（20包）',
-      ja: '辛ラーメン セット（20個）',
-      ko: '신라면 묶음（20개）'
-    },
-    shortDesc: {
-      en: 'Korea’s #1 spicy instant noodle — a global pantry staple.',
-      zh: '韩国第一辣味方便面，全球厨房必备。',
-      ja: '韓国1位の辛いラーメン。世界の定番。',
-      ko: '한국 1위 매운 라면, 세계적인 스테디셀러.'
-    },
-    description: {
-      en: 'Bold, spicy beef broth with chewy noodles. The Korean ramen that turned the world onto spicy noodles. Sealed bundle for safe international shipping.',
-      zh: '浓郁香辣牛肉汤配弹牙面条。让世界认识辣面的韩国拉面。密封装便于国际运输。',
-      ja: '辛い牛スープとコシのある麺。世界に辛ラーメンを広めた一本。海外配送向け密封セット。',
-      ko: '진한 매콤 소고기 국물과 쫄깃한 면. 매운면을 세계에 알린 한국 라면. 해외 배송용 밀봉 묶음.'
-    },
-    priceKRW: 17900,
-    brand: 'Nongshim',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do',
-      zh: '韩国制造 — 京畿道',
-      ja: '韓国製 — 京畿道',
-      ko: '한국 제조 — 경기도'
-    },
-    weightGrams: 2400,
-    rating: 4.8,
-    reviewCount: 19870,
-    reviews: [],
-    images: img('ramen', 3),
-    tags: ['bestseller', 'exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 12
-  },
-  {
-    id: 'maxim-mocha-gold',
-    rank: 9,
-    category: 'food',
-    name: {
-      en: 'Maxim Mocha Gold Stick Coffee (100ct)',
-      zh: '美式摩卡金速溶咖啡（100条）',
-      ja: 'マキシム モカゴールド スティック（100本）',
-      ko: '맥심 모카골드 마일드 스틱（100개）'
-    },
-    shortDesc: {
-      en: 'The smooth instant coffee every Korean office stocks.',
-      zh: '韩国办公室人手一杯的顺滑速溶咖啡。',
-      ja: '韓国のオフィスで定番のインスタントコーヒー。',
-      ko: '한국 직장인의 국민 커피.'
-    },
-    description: {
-      en: 'Mild, aromatic micro-granule coffee you dissolve in hot or cold water. A uniquely Korean habit that travellers miss most.',
-      zh: '微颗粒咖啡，冷热水皆溶。韩国独有的习惯，旅行者最想念的味道。',
-      ja: '微顆粒コーヒー。冷温水両対応。韓国ならではの習慣。',
-      ko: '미세 과립 커피, 냉수·온수 모두 잘 녹아요. 한국 특유의 커피 문화.'
-    },
-    priceKRW: 15900,
-    originalPriceKRW: 19000,
-    brand: 'Dongseo',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do',
-      zh: '韩国制造 — 京畿道',
-      ja: '韓国製 — 京畿道',
-      ko: '한국 제조 — 경기도'
-    },
-    weightGrams: 850,
-    rating: 4.7,
-    reviewCount: 8540,
-    reviews: [],
-    images: img('coffee', 2),
-    tags: ['bestseller', 'exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 5
-  },
-  {
-    id: 'saeukkang-shrimp',
-    rank: 13,
-    category: 'food',
-    name: {
-      en: 'Saeukkang Shrimp Snack Multipack (8 bags)',
-      zh: '鲜虾条多包装（8袋）',
-      ja: 'サエウッカン えびせん 8袋セット',
-      ko: '새우깡 다다익선（8봉）'
-    },
-    shortDesc: {
-      en: 'Crunchy shrimp crackers — Korea’s comfort snack since 1971.',
-      zh: '酥脆虾味零食，1971年至今的韩国国民零嘴。',
-      ja: 'サクサクえびせん。1971年から愛される韓国のおやつ。',
-      ko: '바삭한 새우깡, 1971년부터 이어진 국민 간식.'
-    },
-    description: {
-      en: 'The original shrimp cracker. Lightly seasoned, deeply crunchy, and impossible to put down. A nostalgic classic that ships perfectly.',
-      zh: '原版虾味零食，淡调味、极致酥脆、停不下来。怀旧经典，便于运输。',
-      ja: '元祖えびせん。軽い味付け、強いサクサク感。懐かしの定番。',
-      ko: '원조 새우깡. 가벼운 간, 강렬한 바사함. 배송에도 강한 추억의 간식.'
-    },
-    priceKRW: 11900,
-    brand: 'Nongshim',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do, Anseong',
-      zh: '韩国制造 — 京畿道安城',
-      ja: '韓国製 — 京畿道 安城',
-      ko: '한국 제조 — 경기도 안성'
-    },
-    weightGrams: 640,
-    rating: 4.6,
-    reviewCount: 5320,
-    reviews: [],
-    images: img('crackers', 2),
-    tags: ['exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 3
-  },
-  {
-    id: 'banana-milk-powder',
-    rank: 17,
-    category: 'food',
-    name: {
-      en: 'Banana Flavored Milk Mix (10 sachets)',
-      zh: '香蕉味奶粉（10袋）',
-      ja: 'バナナ牛乳ミックス（10袋）',
-      ko: '바나나맛 우유 믹스（10개）'
-    },
-    shortDesc: {
-      en: 'The iconic Korean banana milk, now in instant powder form.',
-      zh: '韩国国民香蕉牛奶，速溶粉版。',
-      ja: '韓国のバナナ牛乳を粉末で。インスタント。',
-      ko: '국민 바나나맛 우유, 인스턴트 파우치로.'
-    },
-    description: {
-      en: 'Recreate Korea’s most Instagrammed drink at home. Just add cold milk for that signature sweet banana flavor.',
-      zh: '在家复刻韩国最火香蕉奶。加冷牛奶即可，招牌香蕉甜味。',
-      ja: '韓国発のバナナ牛乳をご自宅で。冷たい牛乳を注ぐだけ。',
-      ko: '한국의 바나나맛 우유를 집에서. 차가운 우유만 부으면 완성.'
-    },
-    priceKRW: 12900,
-    brand: 'Binggrae',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do',
-      zh: '韩国制造 — 京畿道',
-      ja: '韓国製 — 京畿道',
-      ko: '한국 제조 — 경기도'
-    },
-    weightGrams: 450,
-    rating: 4.4,
-    reviewCount: 3120,
-    reviews: [],
-    images: img('milk', 2),
-    tags: ['newArrival', 'exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 7
-  },
-
-  // ---------------- LIFESTYLE ----------------
-  {
     id: 'locklock-container-set',
     rank: 3,
     category: 'lifestyle',
-    name: {
-      en: 'Airtight Food Container Set (5pcs)',
-      zh: '密封保鲜盒套装（5件）',
-      ja: '密閉保存容器セット（5個）',
-      ko: '밀폐 용기 세트（5개）'
-    },
-    shortDesc: {
-      en: 'The Korean airtight container brand trusted worldwide.',
-      zh: '全球信赖的韩国密封容器品牌。',
-      ja: '世界で信頼される韓国の密閉容器。',
-      ko: '세계가 신뢰하는 한국 밀폐 용기.'
-    },
-    description: {
-      en: 'BPA-free, nestable containers with the signature four-latch silicone seal. A Korean home-goods staple now sold in 120+ countries.',
-      zh: '不含BPA、可叠放，四锁硅胶密封。韩国家居国民品，销往120多国。',
-      ja: 'BPAフリー、重ね収納、4ロックシリコンパッキン。120カ国以上で販売。',
-      ko: 'BPA 프리, 겹쳐 보관, 4중 잠금 실리쉴. 120개국 이상 판매.'
-    },
+    name: text('LocknLock Classic Airtight Container Set', '락앤락 클래식 밀폐용기 세트'),
+    shortDesc: text(
+      'Clear stackable containers with LocknLock latch lids.',
+      '락앤락 잠금 뚜껑을 갖춘 투명 적층형 밀폐용기.'
+    ),
+    description: text(
+      'A practical Korean kitchen staple: stackable clear containers with blue latch lids for pantry storage, leftovers and meal prep. The set photographs like a real shipped product rather than a lifestyle placeholder.',
+      '한국 주방에서 익숙한 실용적인 밀폐용기 세트입니다. 투명한 용기와 파란 잠금 뚜껑으로 식재료 보관, 남은 음식, 밀프렙에 잘 맞습니다.'
+    ),
     priceKRW: 29000,
     originalPriceKRW: 36000,
     brand: 'LocknLock',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do',
-      zh: '韩国制造 — 京畿道',
-      ja: '韓国製 — 京畿道',
-      ko: '한국 제조 — 경기도'
-    },
+    origin: text('Designed in Korea', '한국 브랜드 기획'),
     weightGrams: 900,
     rating: 4.9,
     reviewCount: 15640,
@@ -552,294 +133,387 @@ export const PRODUCTS: Product[] = [
         author: 'Priya R.',
         country: 'SEA',
         rating: 5,
-        text: {
-          en: 'Genuinely airtight. My pantry has never looked better.',
-          zh: '真正密封，厨房收纳焕然一新。',
-          ja: '本当に密閉。キッチンがすっきり。',
-          ko: '정말 밀폐가 잘 돼요. 주방이 정리됐어요.'
-        },
+        text: reviewText(
+          'Genuinely airtight. My pantry has never looked better.',
+          '정말 밀폐가 잘 돼요. 팬트리가 훨씬 깔끔해졌습니다.'
+        ),
         date: '2026-05-09'
       }
     ],
-    images: img('container', 3),
+    images: [
+      'https://cdn11.bigcommerce.com/s-sp9oc95xrw/images/stencil/1280x1280/products/14516/62726/8382287_731df55f-261f-40cb-be66-5e66e2867425_1024_1024__50642.1688635382.jpg?c=2',
+      'https://cdn11.bigcommerce.com/s-sp9oc95xrw/products/14516/images/62726/8382287_731df55f-261f-40cb-be66-5e66e2867425_1024_1024__50642.1688635382.386.513.jpg?c=2'
+    ],
     tags: ['bestseller', 'awardWinner', 'exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 6
   },
   {
-    id: 'jeju-tumbler-500',
-    rank: 10,
-    category: 'lifestyle',
-    name: {
-      en: 'Vacuum Insulated Tumbler 500ml',
-      zh: '真空保温随行杯500ml',
-      ja: '真空断熱タンブラー 500ml',
-      ko: '진공 보온 텀블러 500ml'
-    },
-    shortDesc: {
-      en: 'Keeps cold 24h, hot 12h — the Korean everyday-carry tumbler.',
-      zh: '冷保24小时、热保12小时，韩国日常随行杯。',
-      ja: '冷たい24時間、温かい12時間。韓国の定番タンブラー。',
-      ko: '냉 24시간, 온 12시간. 한국의 데일리 텀블러.'
-    },
-    description: {
-      en: 'Double-wall stainless tumbler in a slim form that fits car and bag cup holders. Made in a Korean-owned factory with a 10-year insulation warranty.',
-      zh: '双层不锈钢，纤细杯身适配杯架。韩国工厂制造，保温保修10年。',
-      ja: '二重壁ステンレス。カップホルダー対応の細身。韓国工場製、10年保証。',
-      ko: '이중 스테인리스. 컵홀더 맞춤 슬림. 한국 공장 제작, 10년 보증.'
-    },
-    priceKRW: 22000,
-    brand: 'HanTumbler',
-    origin: {
-      en: 'Made in Korea — Jeollabuk-do',
-      zh: '韩国制造 — 全罗北道',
-      ja: '韓国製 — 全北道',
-      ko: '한국 제조 — 전라북도'
-    },
-    weightGrams: 320,
+    id: 'sun-cushion-aqua',
+    rank: 4,
+    category: 'beauty',
+    name: text('Dr.G Green Mild Up Sun+ SPF50+', '닥터지 그린 마일드 업 선 플러스 SPF50+'),
+    shortDesc: text(
+      'A mineral sunscreen known for sensitive-skin daily use.',
+      '민감 피부 데일리 선크림으로 잘 알려진 무기자차.'
+    ),
+    description: text(
+      'A Korean mineral sunscreen with SPF50+ protection and a mild daily-wear positioning. Compact and export-friendly, it is an easier real-product match than the earlier generic sun-cushion placeholder.',
+      'SPF50+ 보호와 순한 사용감을 내세운 한국 무기자차 선크림입니다. 기존 선쿠션 합성 상품보다 실제 구매 상품에 가깝게 정리했습니다.'
+    ),
+    priceKRW: 21000,
+    originalPriceKRW: 26000,
+    brand: 'Dr.G',
+    origin: text('Made in Korea - Chungcheongbuk-do', '한국 제조 - 충청북도'),
+    weightGrams: 90,
     rating: 4.7,
-    reviewCount: 4180,
-    reviews: [],
-    images: img('cup', 2),
-    tags: ['exportFriendly', 'newArrival'],
+    reviewCount: 12760,
+    reviews: [
+      {
+        id: 'r1',
+        author: 'Wei C.',
+        country: 'CN',
+        rating: 5,
+        text: reviewText(
+          'No heavy feeling. I buy two tubes at a time.',
+          '무겁지 않아서 좋아요. 한 번에 두 개씩 구매합니다.'
+        ),
+        date: '2026-05-22'
+      }
+    ],
+    images: [
+      'https://upload.skin-seoul.com/wp-content/uploads/2024/05/4415-represent.webp',
+      'https://upload.skin-seoul.com/wp-content/uploads/2024/05/4415-add1.webp'
+    ],
+    tags: ['bestseller', 'vegan', 'exportFriendly'],
     shippingZones: ALL,
-    weeklyTrend: 5
+    weeklyTrend: 9
   },
   {
-    id: 'kitchen-cloth-5set',
-    rank: 18,
-    category: 'lifestyle',
-    name: {
-      en: 'Premium Kitchen Dish Cloths (5pcs)',
-      zh: '高级厨房抹布（5条）',
-      ja: 'プレミアムキッチンクロス（5枚）',
-      ko: '프리미엄 주방 행주（5장）'
-    },
-    shortDesc: {
-      en: 'Quick-drying, lint-free cloths — the Korean homemaker favorite.',
-      zh: '速干无屑抹布，韩国家政最爱。',
-      ja: '速乾・ lintフリーのキッチンクロス。',
-      ko: '속건·보풀 없는 주방 행주, 한국 주부 필수템.'
-    },
-    description: {
-      en: 'Woven in Korea with a fine microfiber weave that absorbs fast and dries even faster. Five neutral colors that suit any kitchen.',
-      zh: '韩国织造细密微纤，吸水快、干得更快。五色百搭厨房。',
-      ja: '韓国製の細密マイクロファイバー。吸水速い、乾きも速い。5色セット。',
-      ko: '한국 직조의 미세 마이크로파이버. 흡수 빠르고 건조도 빠름. 5색 세트.'
-    },
-    priceKRW: 14900,
-    brand: 'LivingHaus',
-    origin: {
-      en: 'Made in Korea — Daegu',
-      zh: '韩国制造 — 大邱',
-      ja: '韓国製 — 大邱',
-      ko: '한국 제조 — 대구'
-    },
-    weightGrams: 280,
-    rating: 4.5,
-    reviewCount: 2640,
+    id: 'shin-ramyun-bundle',
+    rank: 5,
+    category: 'food',
+    name: text('Nongshim Shin Ramyun Bundle', '농심 신라면 번들'),
+    shortDesc: text(
+      'Korea’s iconic spicy instant noodle in a shipping-safe bundle.',
+      '해외 배송에 맞춘 한국 대표 매운 라면 번들.'
+    ),
+    description: text(
+      'Bold beef-style broth, springy noodles and the unmistakable red pack. A pantry essential for K-food shoppers and one of the easiest products to recognize from the photo alone.',
+      '진한 매운 국물과 쫄깃한 면, 강렬한 빨간 패키지가 특징인 대표 K-라면입니다. 사진만으로도 바로 알아볼 수 있는 인기 식품입니다.'
+    ),
+    priceKRW: 17900,
+    brand: 'Nongshim',
+    origin: text('Made in Korea - Gyeonggi-do', '한국 제조 - 경기도'),
+    weightGrams: 2400,
+    rating: 4.8,
+    reviewCount: 19870,
     reviews: [],
-    images: img('cloth', 2),
-    tags: ['exportFriendly'],
+    images: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/%EC%8B%A0%EB%9D%BC%EB%A9%B4%28%EB%B4%89%EC%A7%80%EB%A9%B4%29_%EA%B5%AC%EC%84%B1%ED%92%88.jpg/1280px-%EC%8B%A0%EB%9D%BC%EB%A9%B4%28%EB%B4%89%EC%A7%80%EB%A9%B4%29_%EA%B5%AC%EC%84%B1%ED%92%88.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/2014_%EB%86%8D%EC%8B%AC_%EC%8B%A0%EB%9D%BC%EB%A9%B4.jpg/250px-2014_%EB%86%8D%EC%8B%AC_%EC%8B%A0%EB%9D%BC%EB%A9%B4.jpg'
+    ],
+    tags: ['bestseller', 'exportFriendly'],
     shippingZones: ALL,
-    weeklyTrend: 2
+    weeklyTrend: 12
   },
-
-  // ---------------- STATIONERY ----------------
   {
     id: 'monami-153-set',
     rank: 6,
     category: 'stationery',
-    name: {
-      en: 'Iconic 153 Ballpoint Pen Set (10)',
-      zh: '国民153圆珠笔套装（10支）',
-      ja: '国民的153ボールペンセット（10本）',
-      ko: '국민 볼펜 153 세트（10자루）'
-    },
-    shortDesc: {
-      en: 'The Korean fountain-pen-look ballpoint, an icon since 1963.',
-      zh: '韩式钢笔造型圆珠笔，1963年经典。',
-      ja: '韓国の万年筆風ボールペン、1963年から。',
-      ko: '만년필 느낌의 국민 볼펜, 1963년부터.'
-    },
-    description: {
-      en: 'The slim, handsome pen found in every Korean office and school. Smooth ink, classic resin body, and the design that never went out of style.',
-      zh: '韩国每个办公室和学校都有的细长美笔。顺滑墨水、经典树脂杆。',
-      ja: '韓国のオフィス・学校に必ず一本。書き味なめらか、クラシック樹脂軸。',
-      ko: '한국 직장·학교 어디나 한 자루. 매끄러운 잉크, 클래식 수지.'
-    },
+    name: text('Monami 153 Ballpoint Pen Set', '모나미 153 볼펜 세트'),
+    shortDesc: text(
+      'The classic Korean office-and-school ballpoint pen.',
+      '한국 사무실과 학교에서 익숙한 클래식 볼펜.'
+    ),
+    description: text(
+      'The slim black-and-white Monami 153 is one of Korea’s most recognizable stationery designs. Lightweight, inexpensive and perfect for a small overseas parcel.',
+      '흑백의 슬림한 모나미 153은 한국 문구를 대표하는 디자인 중 하나입니다. 가볍고 부담 없는 가격이라 해외 소포 상품으로도 잘 맞습니다.'
+    ),
     priceKRW: 12900,
     brand: 'Monami',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do, Paju',
-      zh: '韩国制造 — 京畿道坡州',
-      ja: '韓国製 — 京畿道 坡州',
-      ko: '한국 제조 — 경기도 파주'
-    },
+    origin: text('Made in Korea - Gyeonggi-do, Paju', '한국 제조 - 경기도 파주'),
     weightGrams: 210,
     rating: 4.8,
     reviewCount: 7230,
     reviews: [],
-    images: img('pen', 2),
+    images: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Monami_153.jpg/960px-Monami_153.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Monami_153_ball_pen.jpg/960px-Monami_153_ball_pen.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Korea_Monami_09_%2815452773099%29.jpg/960px-Korea_Monami_09_%2815452773099%29.jpg'
+    ],
     tags: ['bestseller', 'awardWinner', 'exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 4
   },
   {
-    id: 'grid-notebook-a5',
-    rank: 12,
-    category: 'stationery',
-    name: {
-      en: 'Dotted Grid Notebook A5 (3-pack)',
-      zh: '点阵方格笔记本A5（3本）',
-      ja: 'ドット方眼ノート A5（3冊）',
-      ko: '도트 눈금 노트 A5（3권）'
-    },
-    shortDesc: {
-      en: 'Acid-free dotted notebooks loved by Korean bullet journalists.',
-      zh: '韩国子弹笔记爱好者钟爱的无酸点阵本。',
-      ja: '韓国のバレットジャーナル愛好家に人気の無酸ドットノート。',
-      ko: '한국 불렛저널러가 사랑하는 무산 도트 노트.'
-    },
-    description: {
-      en: 'Premium 100gsm paper that resists bleed-through, lay-flat binding, and a clean dotted grid. A favorite of Korean stationery YouTubers.',
-      zh: '100gsm优质纸张防洇墨，平摊装订，干净点阵。韩系文具YouTuber推荐。',
-      ja: '100gsm上質紙、裏抜けしにくい。平開き製本、きれいなドット。',
-      ko: '100gsm 프리미엄 용지, 뒷면 번짐 적음. 평편 제본, 깔끔한 도트.'
-    },
-    priceKRW: 15900,
-    brand: 'DailyPen',
-    origin: {
-      en: 'Made in Korea — Seoul',
-      zh: '韩国制造 — 首尔',
-      ja: '韓国製 — ソウル',
-      ko: '한국 제조 — 서울'
-    },
-    weightGrams: 540,
-    rating: 4.7,
-    reviewCount: 3960,
-    reviews: [],
-    images: img('notebook', 2),
-    tags: ['exportFriendly'],
-    shippingZones: ALL,
-    weeklyTrend: 5
-  },
-  {
-    id: 'washi-tape-set',
-    rank: 19,
-    category: 'stationery',
-    name: {
-      en: 'Korean Pattern Washi Tape (8 rolls)',
-      zh: '韩式花纹和纸胶带（8卷）',
-      ja: '韓国柄マスキングテープ（8巻）',
-      ko: '한국 패턴 마스킹테이프（8개）'
-    },
-    shortDesc: {
-      en: 'Tear-by-hand masking tape in exclusive Korean-designed patterns.',
-      zh: '手撕即可，韩国原创花纹胶带。',
-      ja: '手で切れるマスキングテープ、韓国デザイン。',
-      ko: '손으로 뜯는 마스킹테이프, 한국 디자인.'
-    },
-    description: {
-      en: 'Eight exclusive patterns designed by a Seoul stationery studio — soft florals, hanbok colors, and modern minimal lines. Re-stickable and bleed-resistant.',
-      zh: '首尔文具工作室原创8款——柔花、韩服色、极简线条。可重复粘贴。',
-      ja: 'ソウルの文具スタジオによる8柄。韓服色とモダンライン。貼り直し可能。',
-      ko: '서울 문구 스튜디오의 8종 디자인. 한복 색감과 미니멀 라인. 재부착 가능.'
-    },
-    priceKRW: 11900,
-    brand: 'DailyPen',
-    origin: {
-      en: 'Made in Korea — Seoul',
-      zh: '韩国制造 — 首尔',
-      ja: '韓国製 — ソウル',
-      ko: '한국 제조 — 서울'
-    },
-    weightGrams: 160,
+    id: 'lip-tint-velvet',
+    rank: 7,
+    category: 'beauty',
+    name: text('rom&nd Juicy Lasting Tint', '롬앤 쥬시 래스팅 틴트'),
+    shortDesc: text(
+      'Glossy K-beauty lip tint with a vivid stain finish.',
+      '생기 있는 착색감의 글로시 K-뷰티 립틴트.'
+    ),
+    description: text(
+      'A Korean lip tint with a glassy finish and a compact tube format. The product photography now matches what a shopper expects from a cosmetics listing.',
+      '맑고 글로시한 마무리와 휴대하기 쉬운 튜브형 패키지가 특징인 한국 립틴트입니다. 화장품 쇼핑 화면에 어울리는 실제 상품컷으로 교체했습니다.'
+    ),
+    priceKRW: 24000,
+    brand: 'rom&nd',
+    origin: text('Made in Korea - Seoul', '한국 제조 - 서울'),
+    weightGrams: 60,
     rating: 4.6,
-    reviewCount: 1820,
+    reviewCount: 9840,
     reviews: [],
-    images: img('tape', 2),
-    tags: ['newArrival'],
-    shippingZones: ALL,
-    weeklyTrend: 3
-  },
-
-  // ---------------- TECH ACCESSORIES ----------------
-  {
-    id: 'samsung-charger-25w',
-    rank: 8,
-    category: 'tech',
-    name: {
-      en: 'Super Fast Charging 25W Adapter',
-      zh: '超级快充25W充电头',
-      ja: 'スーパー急速充電 25Wアダプター',
-      ko: '스uper 급속 충전 25W 어댑터'
-    },
-    shortDesc: {
-      en: 'Genuine Korean-made 25W USB-C fast charger.',
-      zh: '韩国制造正品25W USB-C快充。',
-      ja: '韓国製正規品 25W USB-C急速充電器。',
-      ko: '한국 제조 정품 25W USB-C 고속 충전기.'
-    },
-    description: {
-      en: 'Compact GaN charger with foldable pins, multi-voltage input (100–240V) for safe use worldwide. Compatible with phones, tablets and earbuds.',
-      zh: '小巧GaN充电器，折叠插脚，100–240V宽电压全球可用。适配手机、平板、耳机。',
-      ja: '小型GaN充電器、折りたたみプラグ、100–240V対応。世界対応。',
-      ko: '소형 GaN 충전기, 접이식 핀, 100–240V 세계 대응. 폰·태블릿·이어버드 호환.'
-    },
-    priceKRW: 19900,
-    originalPriceKRW: 25000,
-    brand: 'Samsong OEM',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do, Suwon',
-      zh: '韩国制造 — 京畿道水原',
-      ja: '韓国製 — 京畿道 水原',
-      ko: '한국 제조 — 경기도 수원'
-    },
-    weightGrams: 95,
-    rating: 4.7,
-    reviewCount: 6780,
-    reviews: [],
-    images: img('charger', 2),
+    images: [
+      'https://d1flfk77wl2xk4.cloudfront.net/Assets/GalleryImage/96/884/g0101788496.jpg',
+      'https://d1flfk77wl2xk4.cloudfront.net/Assets/95/884/L_p0101788495.jpg',
+      'https://d1flfk77wl2xk4.cloudfront.net/Assets/GalleryImage/97/884/g0101788497.jpg'
+    ],
     tags: ['bestseller', 'exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 6
   },
   {
+    id: 'samsung-charger-25w',
+    rank: 8,
+    category: 'tech',
+    name: text('Samsung 25W USB-C Fast Charger', '삼성 25W USB-C 고속 충전기'),
+    shortDesc: text(
+      'Compact USB-C wall adapter for fast everyday charging.',
+      '일상 고속 충전에 적합한 컴팩트 USB-C 어댑터.'
+    ),
+    description: text(
+      'A simple 25W USB-C charger listing with clean packshot photography. It replaces the previous generic charger card with a real accessory-style product image.',
+      '깔끔한 제품컷을 갖춘 25W USB-C 충전기 상품입니다. 기존의 일반 이미지 대신 실제 액세서리 판매 화면에 가까운 사진을 사용했습니다.'
+    ),
+    priceKRW: 19900,
+    originalPriceKRW: 25000,
+    brand: 'Samsung',
+    origin: text('Korean brand accessory', '한국 브랜드 액세서리'),
+    weightGrams: 95,
+    rating: 4.7,
+    reviewCount: 6780,
+    reviews: [],
+    images: [
+      'https://i.hinnavaatlus.ee/p/1200/30/66/8720287033400menhd1.jpg',
+      'https://i.hinnavaatlus.ee/p/1200/7f/ac/8720287033400aenhd1.jpg',
+      'https://i.hinnavaatlus.ee/p/1200/3f/dd/8720287033400genhd1.jpg'
+    ],
+    tags: ['bestseller', 'exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 6
+  },
+  {
+    id: 'maxim-mocha-gold',
+    rank: 9,
+    category: 'food',
+    name: text('Maxim Mocha Gold Mild Coffee Mix 100 Sticks', '맥심 모카골드 마일드 커피믹스 100개입'),
+    shortDesc: text(
+      'The yellow-box instant coffee found in Korean offices.',
+      '한국 사무실에서 익숙한 노란 박스 커피믹스.'
+    ),
+    description: text(
+      'A 100-stick instant coffee box with the recognizable Maxim yellow packaging. It adds an everyday Korean grocery cue to the marketplace.',
+      '맥심 특유의 노란 패키지가 눈에 띄는 100개입 커피믹스입니다. 한국 장보기 앱에서 볼 법한 일상 상품감을 더합니다.'
+    ),
+    priceKRW: 15900,
+    originalPriceKRW: 19000,
+    brand: 'Dongsuh Maxim',
+    origin: text('Made in Korea - Gyeonggi-do', '한국 제조 - 경기도'),
+    weightGrams: 850,
+    rating: 4.7,
+    reviewCount: 8540,
+    reviews: [],
+    images: [
+      'https://chegourmet.co.za/cdn/shop/files/Product-248.jpg?v=1749218343',
+      'https://chegourmet.co.za/cdn/shop/files/Product-248.jpg?v=1749218343&width=990'
+    ],
+    tags: ['bestseller', 'exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 5
+  },
+  {
+    id: 'jeju-tumbler-500',
+    rank: 10,
+    category: 'lifestyle',
+    name: text('LocknLock Metro Cafe Ceramic Tumbler 500ml', '락앤락 메트로 카페 세라믹 텀블러 500ml'),
+    shortDesc: text(
+      'A minimal insulated tumbler for commute coffee.',
+      '출근길 커피에 어울리는 미니멀 보온 텀블러.'
+    ),
+    description: text(
+      'A clean, cafe-style tumbler product that fits the lifestyle shelf better than a generic cup image. The warm neutral photo adds a real home-goods feel.',
+      '카페 스타일의 미니멀 텀블러 상품입니다. 일반 컵 이미지보다 실제 라이프스타일 상품 진열에 가까운 인상을 줍니다.'
+    ),
+    priceKRW: 22000,
+    brand: 'LocknLock',
+    origin: text('Korean brand accessory', '한국 브랜드 액세서리'),
+    weightGrams: 320,
+    rating: 4.7,
+    reviewCount: 4180,
+    reviews: [],
+    images: [
+      'https://bizweb.dktcdn.net/100/416/657/products/lhc4357.jpg?v=1727235159043',
+      'https://bizweb.dktcdn.net/100/416/657/products/vn-11134207-7r98o-lv1dc6lhx05571-1715150991506.jpg?v=1727235159043',
+      'https://bizweb.dktcdn.net/100/416/657/products/vn-11134207-7r98o-lv1btvhdawey96-1715150991506.jpg?v=1727235159043'
+    ],
+    tags: ['exportFriendly', 'newArrival'],
+    shippingZones: ALL,
+    weeklyTrend: 5
+  },
+  {
+    id: 'snail-essence',
+    rank: 11,
+    category: 'beauty',
+    name: text('COSRX Advanced Snail 96 Mucin Power Essence', '코스알엑스 어드밴스드 스네일 96 뮤신 파워 에센스'),
+    shortDesc: text(
+      'A viral snail mucin essence for hydrated glass-skin routines.',
+      '촉촉한 글라스 스킨 루틴으로 유명한 스네일 뮤신 에센스.'
+    ),
+    description: text(
+      'A global K-beauty staple built around snail secretion filtrate. The bottle is highly recognizable, so using the real product photo makes the detail page feel much more credible.',
+      '스네일 뮤신 성분으로 널리 알려진 글로벌 K-뷰티 대표 상품입니다. 병 형태가 잘 알려져 있어 실제 사진을 넣었을 때 상세 페이지의 신뢰감이 크게 올라갑니다.'
+    ),
+    priceKRW: 18000,
+    originalPriceKRW: 23000,
+    brand: 'COSRX',
+    origin: text('Made in Korea - Gyeonggi-do', '한국 제조 - 경기도'),
+    weightGrams: 110,
+    rating: 4.9,
+    reviewCount: 26210,
+    reviews: [
+      {
+        id: 'r1',
+        author: 'Anna K.',
+        country: 'EU',
+        rating: 5,
+        text: reviewText(
+          'Calmed my redness in a week. Repurchased four times.',
+          '일주일 만에 붉은기가 진정됐어요. 네 번째 재구매입니다.'
+        ),
+        date: '2026-04-30'
+      }
+    ],
+    images: [
+      'https://www.cosrx.com/cdn/shop/files/james_800x1067_1_1_4e9750cc-2cd6-4817-ace5-be2305a85806_1200x1200.jpg?v=1763111577',
+      'https://www.cosrx.com/cdn/shop/files/Advanced_Snail_96_Mucin_Power_Essence_100ml_1_1200x1200.jpg?v=1763111577'
+    ],
+    tags: ['bestseller', 'exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 11
+  },
+  {
+    id: 'grid-notebook-a5',
+    rank: 12,
+    category: 'stationery',
+    name: text('ICONIC A5 Grid Wire Notebook', '아이코닉 A5 그리드 와이어 노트'),
+    shortDesc: text(
+      'A neat Korean grid notebook for planning and study.',
+      '기획과 공부에 쓰기 좋은 한국 감성 그리드 노트.'
+    ),
+    description: text(
+      'A real Korean stationery product with a distinct green-wire grid notebook look. It gives the stationery shelf a more specific visual language than a generic notebook photo.',
+      '초록 와이어와 그리드 내지가 특징인 실제 한국 문구 상품입니다. 일반 노트 사진보다 문구 카테고리의 성격이 더 또렷하게 보입니다.'
+    ),
+    priceKRW: 15900,
+    brand: 'ICONIC',
+    origin: text('Made in Korea - Seoul', '한국 제조 - 서울'),
+    weightGrams: 540,
+    rating: 4.7,
+    reviewCount: 3960,
+    reviews: [],
+    images: [
+      'https://cdn11.bigcommerce.com/s-7edce/images/stencil/1000x1000/products/11606/191242/ICONIC-Vertically-half-divided-wire-bound-A5-grid-notebook-10__39948.1613209152.jpg?c=2',
+      'https://cdn11.bigcommerce.com/s-7edce/images/stencil/1000x1000/products/11606/191252/ICONIC-Vertically-half-divided-wire-bound-A5-grid-notebook-01__78928.1613209151.jpg?c=2',
+      'https://cdn11.bigcommerce.com/s-7edce/images/stencil/1000x1000/products/11606/191246/ICONIC-Vertically-half-divided-wire-bound-A5-grid-notebook-04__66227.1613209112.jpg?c=2'
+    ],
+    tags: ['exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 5
+  },
+  {
+    id: 'saeukkang-shrimp',
+    rank: 13,
+    category: 'food',
+    name: text('Nongshim Saewookkang Shrimp Snack', '농심 새우깡'),
+    shortDesc: text(
+      'Crunchy shrimp crackers, Korea’s classic comfort snack.',
+      '바삭한 새우맛 스낵, 한국의 클래식 간식.'
+    ),
+    description: text(
+      'A red-and-gold pack that is instantly recognizable in Korean snack aisles. The product image now shows both the bag and the actual crackers.',
+      '한국 과자 코너에서 바로 알아볼 수 있는 빨강·금색 패키지의 대표 스낵입니다. 봉지와 실제 과자 모양이 함께 보이는 사진을 사용했습니다.'
+    ),
+    priceKRW: 11900,
+    brand: 'Nongshim',
+    origin: text('Made in Korea - Gyeonggi-do, Anseong', '한국 제조 - 경기도 안성'),
+    weightGrams: 640,
+    rating: 4.6,
+    reviewCount: 5320,
+    reviews: [],
+    images: [
+      'https://image.wiselycompany.co.kr/prod/products/3976/image_0.jpg?w=1200&h=630&q=80&f=webp'
+    ],
+    tags: ['exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 3
+  },
+  {
     id: 'clear-case-galaxy',
     rank: 14,
     category: 'tech',
-    name: {
-      en: 'Anti-Yellow Clear Phone Case',
-      zh: '抗黄变透明手机壳',
-      ja: '黄ばみにくいクリアケース',
-      ko: '노랑 변색 방지 투명 케이스'
-    },
-    shortDesc: {
-      en: 'Crystal-clear Korean-made case that resists yellowing.',
-      zh: '韩国制造透明壳，抗黄变。',
-      ja: '韓国製の黄ばみにくいクリアケース。',
-      ko: '한국 제작 투명 케이스, 변색 방지.'
-    },
-    description: {
-      en: 'A slim TPU case made in Korea with anti-yellowing additives and a raised lip for camera protection. Precise cutouts and a soft, grippy edge.',
-      zh: '韩国制薄型TPU壳，添加抗黄剂，镜头加高保护。开孔精准、握感柔软。',
-      ja: '韓国製薄型TPU。黄ばみ防止、カメラ保護リップ、正確な切り欠き。',
-      ko: '한국 제작 슬림 TPU. 변색 방지, 카메라 보호, 정확한 컷.'
-    },
+    name: text('Ringke Fusion Clear Phone Case', '링케 퓨전 클리어 폰 케이스'),
+    shortDesc: text(
+      'A transparent protective case that keeps the phone color visible.',
+      '기기 색상을 살려주는 투명 보호 케이스.'
+    ),
+    description: text(
+      'A real Korean accessory brand listing with multiple detail photos. The clear case image is specific enough to make the tech shelf feel like an actual catalog.',
+      '실제 한국 액세서리 브랜드의 상세 사진을 사용했습니다. 투명 케이스의 디테일이 보여 테크 카테고리가 실제 카탈로그처럼 느껴집니다.'
+    ),
     priceKRW: 15900,
-    brand: 'HanTech',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do',
-      zh: '韩国制造 — 京畿道',
-      ja: '韓国製 — 京畿道',
-      ko: '한국 제조 — 경기도'
-    },
+    brand: 'Ringke',
+    origin: text('Korean brand accessory', '한국 브랜드 액세서리'),
     weightGrams: 60,
     rating: 4.4,
     reviewCount: 2410,
     reviews: [],
-    images: img('case', 2),
+    images: [
+      'https://ringke.co.kr/web/product/big/202407/ab469be311c32ec00302e5b2ce7ff6a3.jpg',
+      'https://ringke.co.kr/web/product/extra/big/202407/603874be698f1345c29b64b1dba8d643.jpg',
+      'https://ringke.co.kr/web/product/extra/big/202407/f04cfd14a48459b3ad2e9ff97a4d7165.jpg'
+    ],
+    tags: ['exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 4
+  },
+  {
+    id: 'cica-soothing-gel',
+    rank: 15,
+    category: 'beauty',
+    name: text('Dr.Jart+ Cicapair Tiger Grass Calming Gel Cream', '닥터자르트 시카페어 타이거 그래스 카밍 젤 크림'),
+    shortDesc: text(
+      'Centella-focused gel cream for stressed, sensitive skin.',
+      '민감하고 지친 피부를 위한 센텔라 젤 크림.'
+    ),
+    description: text(
+      'A recognizable Dr.Jart+ Cicapair product with a clean clinical tube-and-box photo. It makes the beauty shelf feel more like a curated retailer than a mock dataset.',
+      '닥터자르트 시카페어 라인의 튜브와 박스가 함께 보이는 깔끔한 제품컷입니다. 뷰티 카테고리를 더 실제 편집숍처럼 보이게 합니다.'
+    ),
+    priceKRW: 9900,
+    brand: 'Dr.Jart+',
+    origin: text('Made in Korea - Chungcheongbuk-do', '한국 제조 - 충청북도'),
+    weightGrams: 80,
+    rating: 4.5,
+    reviewCount: 6210,
+    reviews: [],
+    images: [
+      'https://www.spacenk.com/on/demandware.static/-/Sites-spacenkmastercatalog/default/dw46aea353/products/DR_JART/UK200032628_DR_JART.jpg',
+      'https://www.spacenk.com/on/demandware.static/-/Sites-spacenkmastercatalog/default/dw1f6e45b4/products/DR_JART/UK200032628_DR_JART_1.jpg',
+      'https://www.keoji.com.au/cdn/shop/products/DrJartCicapairCalmingGelCream_80ml_1_1024x.jpg?v=1621408021'
+    ],
     tags: ['exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 4
@@ -848,84 +522,146 @@ export const PRODUCTS: Product[] = [
     id: 'cable-braided-3set',
     rank: 16,
     category: 'tech',
-    name: {
-      en: 'Braided USB-C Cable 3-pack (1m/2m/3m)',
-      zh: '编织USB-C数据线3件套（1/2/3米）',
-      ja: '編組みUSB-Cケーブル 3本セット（1/2/3m）',
-      ko: '편조 USB-C 케이블 3종 세트（1/2/3m）'
-    },
-    shortDesc: {
-      en: 'Durable Korean-made braided cables in three lengths.',
-      zh: '韩国制造耐用编织线，三长度。',
-      ja: '韓国製の丈夫な編組みケーブル、3種長さ。',
-      ko: '한국 제작 튼튼한 편조 케이블, 3종 길이.'
-    },
-    description: {
-      en: 'Nylon-braided jackets over oxygen-free copper, tested to 30,000 bends. Made in Korea and certified for fast charging and data sync.',
-      zh: '尼龙编织外皮+无氧铜，3万次弯折测试。韩国制造，快充数据同步认证。',
-      ja: 'ナイロン編組み＋無酸素銅、3万回屈曲試験。韓国製、急速充電・通信対応。',
-      ko: '나일론 편조+무산소 동, 3만회 굽힘 시험. 한국 제작, 고속 충전·데이터 대응.'
-    },
+    name: text('Samsung USB-C to USB-C Cable', '삼성 USB-C to USB-C 케이블'),
+    shortDesc: text(
+      'A practical USB-C cable for charging and data sync.',
+      '충전과 데이터 전송에 쓰기 좋은 USB-C 케이블.'
+    ),
+    description: text(
+      'A simple cable accessory listing with packaging-style photography. It pairs naturally with the charger in cart recommendations.',
+      '패키지형 사진을 사용한 기본 케이블 액세서리 상품입니다. 충전기와 함께 장바구니 추천에 자연스럽게 어울립니다.'
+    ),
     priceKRW: 16900,
-    brand: 'HanTech',
-    origin: {
-      en: 'Made in Korea — Chungcheongnam-do',
-      zh: '韩国制造 — 忠清南道',
-      ja: '韓国製 — 忠清南道',
-      ko: '한국 제조 — 충청남도'
-    },
+    brand: 'Samsung',
+    origin: text('Korean brand accessory', '한국 브랜드 액세서리'),
     weightGrams: 220,
     rating: 4.6,
     reviewCount: 3340,
     reviews: [],
-    images: img('cable', 2),
+    images: [
+      'https://i.hinnavaatlus.ee/p/1200/84/a1/66731p1.jpg',
+      'https://i.hinnavaatlus.ee/p/1200x630f/84/a1/66731p1.jpg'
+    ],
     tags: ['bestseller', 'exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 5
   },
   {
+    id: 'banana-milk-powder',
+    rank: 17,
+    category: 'food',
+    name: text('Binggrae Banana Flavored Milk', '빙그레 바나나맛 우유'),
+    shortDesc: text(
+      'The iconic Korean banana milk bottle.',
+      '한국을 대표하는 단지 모양 바나나맛 우유.'
+    ),
+    description: text(
+      'The rounded yellow bottle is one of Korea’s most recognizable convenience-store drinks. This real product photo makes the grocery shelf immediately more familiar.',
+      '둥근 노란 단지 모양 병으로 유명한 한국 편의점 대표 음료입니다. 실제 제품 사진이 들어가 식품 카테고리의 현실감이 높아졌습니다.'
+    ),
+    priceKRW: 12900,
+    brand: 'Binggrae',
+    origin: text('Made in Korea - Gyeonggi-do', '한국 제조 - 경기도'),
+    weightGrams: 450,
+    rating: 4.4,
+    reviewCount: 3120,
+    reviews: [],
+    images: [
+      'https://upload.wikimedia.org/wikipedia/commons/e/e7/Bananamilk.jpg'
+    ],
+    tags: ['newArrival', 'exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 7
+  },
+  {
+    id: 'kitchen-cloth-5set',
+    rank: 18,
+    category: 'lifestyle',
+    name: text('Premium Microfiber Dish Cloth Set', '프리미엄 극세사 행주 세트'),
+    shortDesc: text(
+      'Pastel microfiber cloths for a cleaner Korean kitchen shelf.',
+      '주방 진열에 잘 어울리는 파스텔 극세사 행주.'
+    ),
+    description: text(
+      'A compact home-goods item with visible texture and color. The photo feels like a small Korean marketplace listing rather than a generic fabric placeholder.',
+      '질감과 색상이 잘 보이는 소형 생활용품입니다. 일반 천 이미지가 아니라 한국 마켓 상품 리스트처럼 보이도록 사진을 교체했습니다.'
+    ),
+    priceKRW: 14900,
+    brand: 'LivingHaus',
+    origin: text('Made in Korea - Daegu', '한국 제조 - 대구'),
+    weightGrams: 280,
+    rating: 4.5,
+    reviewCount: 2640,
+    reviews: [],
+    images: [
+      'https://contents.lotteon.com/itemimage/20251230133913/LO/25/98/11/72/48/_2/59/81/17/24/9/LO2598117248_2598117249_1.png',
+      'https://contents.lotteon.com/itemimage/20260519111220/LO/25/50/91/37/16/_2/55/09/13/71/7/LO2550913716_2550913717_1.jpg'
+    ],
+    tags: ['exportFriendly'],
+    shippingZones: ALL,
+    weeklyTrend: 2
+  },
+  {
+    id: 'washi-tape-set',
+    rank: 19,
+    category: 'stationery',
+    name: text('Korean Palace Pattern Masking Tape Set', '궁 패턴 마스킹 테이프 세트'),
+    shortDesc: text(
+      'Decorative tape with traditional Korean palace motifs.',
+      '한국 궁중 문양을 담은 장식용 마스킹 테이프.'
+    ),
+    description: text(
+      'A stationery product with a clear Korean visual identity: palace pattern tape, strong color and craft-friendly product photography.',
+      '궁중 문양과 선명한 색감이 살아 있는 문구 상품입니다. 한국적인 시각 요소가 뚜렷해 앱의 상품 큐레이션 성격을 강화합니다.'
+    ),
+    priceKRW: 11900,
+    brand: 'Nessmom',
+    origin: text('Made in Korea - Seoul', '한국 제조 - 서울'),
+    weightGrams: 160,
+    rating: 4.6,
+    reviewCount: 1820,
+    reviews: [],
+    images: [
+      'https://cdn.imweb.me/thumbnail/20250609/728f6251f0580.jpg',
+      'https://cdn.imweb.me/thumbnail/20250609/1d34994a3403b.jpg',
+      'https://cdn.imweb.me/thumbnail/20250610/a60afc487f3fc.jpg'
+    ],
+    tags: ['newArrival'],
+    shippingZones: ALL,
+    weeklyTrend: 3
+  },
+  {
     id: 'wireless-earbuds-pro',
     rank: 20,
     category: 'tech',
-    name: {
-      en: 'ANC Wireless Earbuds (Korean brand)',
-      zh: '降噪无线耳机（韩国品牌）',
-      ja: 'ノイキャン完全ワイヤレス（韓国ブランド）',
-      ko: '노이캔 완전무선 이어폰（한국 브랜드）'
-    },
-    shortDesc: {
-      en: 'Compact ANC earbuds from a Korean audio brand.',
-      zh: '韩国音频品牌的紧凑降噪耳机。',
-      ja: '韓国オーディオブランドの小型ノイキャンイヤホン。',
-      ko: '한국 오디오 브랜드의 소형 노이캔 이어폰.'
-    },
-    description: {
-      en: 'Active noise cancellation, 24h total battery, and a pocketable case. Tuned by a Korean acoustic team for balanced, vocal-forward sound.',
-      zh: '主动降噪、总续航24小时、口袋收纳盒。韩国声学团队调音，人声突出。',
-      ja: 'ノイキャン、合計24時間、小型ケース。韓国チューニング。',
-      ko: '노이캔, 합산 24시간, 포켓 케이스. 한국 튜닝의 보컬 중심 사운드.'
-    },
+    name: text('Samsung Galaxy Buds FE White', '삼성 갤럭시 버즈 FE 화이트'),
+    shortDesc: text(
+      'Compact wireless earbuds with active noise cancelling.',
+      '액티브 노이즈 캔슬링을 지원하는 컴팩트 무선 이어버드.'
+    ),
+    description: text(
+      'A white Galaxy Buds product photo with clear case-and-earbud detail. It makes the tech accessory shelf feel current and recognizable.',
+      '화이트 갤럭시 버즈의 이어버드와 케이스 디테일이 보이는 제품 사진입니다. 테크 액세서리 카테고리에 익숙하고 현재적인 느낌을 줍니다.'
+    ),
     priceKRW: 89000,
     originalPriceKRW: 119000,
-    brand: 'HanAudio',
-    origin: {
-      en: 'Made in Korea — Gyeonggi-do',
-      zh: '韩国制造 — 京畿道',
-      ja: '韓国製 — 京畿道',
-      ko: '한국 제조 — 경기도'
-    },
+    brand: 'Samsung',
+    origin: text('Korean brand accessory', '한국 브랜드 액세서리'),
     weightGrams: 380,
     rating: 4.5,
     reviewCount: 2890,
     reviews: [],
-    images: img('earbuds', 2),
+    images: [
+      'https://bestmart.cl/cdn/shop/files/audifonos-samsung-galaxy-buds-fe-blanco-6407795_600x.jpg?v=1758551210',
+      'https://bestmart.cl/cdn/shop/files/audifonos-samsung-galaxy-buds-fe-blanco-4579955_600x.jpg?v=1758551210',
+      'https://smadshop.md/image/cache/data/nauwniki/casti-fara-fir-samsung-galaxy-buds-pro-sm-r190-white-ya85-5--750x750.jpg'
+    ],
     tags: ['awardWinner', 'exportFriendly'],
     shippingZones: ALL,
     weeklyTrend: 9
   }
 ];
 
-// ---------- Lookup helpers ----------
 export function getProductById(id: string): Product | undefined {
   return PRODUCTS.find((p) => p.id === id);
 }

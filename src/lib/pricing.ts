@@ -1,9 +1,7 @@
 import type { Currency, Locale, ShippingRate, ShippingZone } from '@/types';
 
-// Reference FX rate. Static for the pilot — a real adapter would fetch live rates.
-// KRW per 1 unit of foreign currency.
 export const FX_TO_KRW: Record<Exclude<Currency, 'KRW'>, number> = {
-  USD: 1380 // 1 USD ≈ 1,380 KRW
+  USD: 1380
 };
 
 export function convertFromKRW(amountKRW: number, currency: Currency): number {
@@ -39,7 +37,6 @@ export function localeBCP47(locale: Locale): string {
   }
 }
 
-// Pilot shipping rates by zone. Curated, flat-ish structure to keep cart math simple.
 export const SHIPPING_RATES: ShippingRate[] = [
   { zone: 'KR', baseFeeKRW: 3000, perKgKRW: 0, estimatedDays: [1, 3] },
   { zone: 'JP', baseFeeKRW: 9000, perKgKRW: 4500, estimatedDays: [3, 6] },
@@ -56,8 +53,10 @@ export function getRate(zone: ShippingZone): ShippingRate {
   return r;
 }
 
-// Shipping cost for a cart of given total weight (grams) to a zone.
-export function calcShipping(totalGrams: number, zone: ShippingZone): {
+export function calcShipping(
+  totalGrams: number,
+  zone: ShippingZone
+): {
   feeKRW: number;
   rate: ShippingRate;
 } {
@@ -67,7 +66,6 @@ export function calcShipping(totalGrams: number, zone: ShippingZone): {
   return { feeKRW: fee, rate };
 }
 
-// Per-product shipping preview (single unit) used on detail page & cards.
 export function calcShippingForProduct(
   weightGrams: number,
   zone: ShippingZone

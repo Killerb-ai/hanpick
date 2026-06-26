@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 
-/** Inline star rating with optional review count. */
 export function Rating({
   value,
   count,

@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useSettings } from '@/store/settings';
 import { useCart } from '@/store/cart';
 import { getProductById } from '@/data/products';
-import { formatPrice, calcShipping } from '@/lib/pricing';
+import { calcShipping, formatPrice } from '@/lib/pricing';
 import { ShippingCalculator } from '@/components/ShippingCalculator';
 import { MadeInKoreaBadge } from '@/components/Badge';
 
 export function CartPage() {
   const { t } = useTranslation();
-  const { locale, currency } = useSettings();
+  const { locale, currency, shipZone } = useSettings();
   const { lines, setQuantity, remove, clear } = useCart();
   const [placed, setPlaced] = useState(false);
 
@@ -19,26 +19,32 @@ export function CartPage() {
     .filter((x) => x.product);
 
   const subtotalKRW = items.reduce(
-    (sum, { line, product }) => sum + (product!.priceKRW * line.quantity),
+    (sum, { line, product }) => sum + product!.priceKRW * line.quantity,
     0
   );
   const totalWeight = items.reduce(
     (sum, { line, product }) => sum + product!.weightGrams * line.quantity,
     0
   );
-  const { shipZone } = useSettings();
   const shippingKRW = items.length === 0 ? 0 : calcShipping(totalWeight, shipZone).feeKRW;
   const totalKRW = subtotalKRW + shippingKRW;
 
   if (placed) {
     return (
       <div className="container-px flex flex-col items-center gap-3 py-24 text-center">
-        <div className="text-5xl" aria-hidden>
-          ✅
+        <div className="rounded-lg bg-emerald-50 px-4 py-3 text-lg font-black text-emerald-700">
+          Done
         </div>
         <h1 className="text-xl font-extrabold">{t('cart.orderPlaced')}</h1>
         <p className="max-w-[30ch] text-sm text-stone-500">{t('cart.orderPlacedSub')}</p>
-        <Link to="/" className="btn-primary mt-3" onClick={() => { clear(); setPlaced(false); }}>
+        <Link
+          to="/"
+          className="btn-primary mt-3"
+          onClick={() => {
+            clear();
+            setPlaced(false);
+          }}
+        >
           {t('cart.continueShopping')}
         </Link>
       </div>
@@ -48,8 +54,8 @@ export function CartPage() {
   if (items.length === 0) {
     return (
       <div className="container-px flex flex-col items-center gap-3 py-24 text-center">
-        <div className="text-5xl" aria-hidden>
-          🛒
+        <div className="rounded-lg bg-stone-100 px-4 py-3 text-lg font-black text-stone-500">
+          Cart
         </div>
         <h1 className="text-lg font-extrabold">{t('cart.empty')}</h1>
         <p className="max-w-[30ch] text-sm text-stone-500">{t('cart.emptySub')}</p>
@@ -71,24 +77,27 @@ export function CartPage() {
         </span>
       </div>
 
-      {/* Line items */}
       <div className="mt-4 flex flex-col gap-3">
         {items.map(({ line, product }) => (
-          <div key={line.productId} className="card flex gap-3 p-3">
+          <div key={line.productId} className="card flex gap-3 border border-stone-100 p-3">
             <Link to={`/product/${product!.id}`} className="shrink-0">
-              <img
-                src={product!.images[0]}
-                alt={product!.name[locale]}
-                className="h-20 w-20 rounded-xl object-cover"
-              />
+              <div className="product-photo h-24 w-24 overflow-hidden rounded-lg">
+                <img
+                  src={product!.images[0]}
+                  alt={product!.name[locale]}
+                  className="h-full w-full p-2"
+                />
+              </div>
             </Link>
             <div className="flex min-w-0 flex-1 flex-col">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="text-[10px] uppercase text-stone-400">{product!.brand}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wide text-stone-400">
+                    {product!.brand}
+                  </p>
                   <Link
                     to={`/product/${product!.id}`}
-                    className="line-clamp-2 text-sm font-semibold leading-snug"
+                    className="line-clamp-2 text-sm font-bold leading-snug"
                   >
                     {product!.name[locale]}
                   </Link>
@@ -98,31 +107,31 @@ export function CartPage() {
                 </div>
                 <button
                   onClick={() => remove(line.productId)}
-                  className="shrink-0 text-xs text-stone-400 underline"
+                  className="shrink-0 text-xs font-semibold text-stone-400 underline"
                 >
                   {t('cart.remove')}
                 </button>
               </div>
 
               <div className="mt-auto flex items-center justify-between pt-2">
-                <div className="flex items-center rounded-full border border-stone-200">
+                <div className="flex items-center rounded-lg border border-stone-200">
                   <button
                     onClick={() => setQuantity(line.productId, line.quantity - 1)}
-                    className="h-7 w-7 text-stone-500"
-                    aria-label="-"
+                    className="h-8 w-8 text-stone-500"
+                    aria-label="Decrease quantity"
                   >
-                    −
+                    -
                   </button>
-                  <span className="w-6 text-center text-xs font-bold">{line.quantity}</span>
+                  <span className="w-7 text-center text-xs font-bold">{line.quantity}</span>
                   <button
                     onClick={() => setQuantity(line.productId, line.quantity + 1)}
-                    className="h-7 w-7 text-stone-500"
-                    aria-label="+"
+                    className="h-8 w-8 text-stone-500"
+                    aria-label="Increase quantity"
                   >
                     +
                   </button>
                 </div>
-                <span className="text-sm font-bold">
+                <span className="text-sm font-black">
                   {formatPrice(product!.priceKRW * line.quantity, currency, locale)}
                 </span>
               </div>
@@ -131,13 +140,11 @@ export function CartPage() {
         ))}
       </div>
 
-      {/* Shipping calculator */}
       <div className="mt-5">
         <ShippingCalculator totalGrams={totalWeight} />
       </div>
 
-      {/* Summary */}
-      <div className="mt-4 rounded-2xl bg-stone-100/70 p-4">
+      <div className="mt-4 rounded-lg border border-stone-200 bg-paper p-4 shadow-card">
         <Row label={t('cart.subtotal')} value={formatPrice(subtotalKRW, currency, locale)} />
         <Row
           label={t('cart.shippingTo', { zone: t(`zone.${shipZone}`) })}
@@ -151,7 +158,7 @@ export function CartPage() {
               {formatPrice(totalKRW, currency, locale)}
             </p>
             {currency === 'USD' && (
-              <p className="text-[10px] text-stone-400">₩{totalKRW.toLocaleString()}</p>
+              <p className="text-[10px] text-stone-400">KRW {totalKRW.toLocaleString()}</p>
             )}
           </div>
         </div>

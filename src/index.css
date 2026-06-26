@@ -9,20 +9,22 @@
   }
   body {
     @apply bg-cream text-ink font-sans antialiased;
-    /* Safe areas for notched devices / bottom tab bar */
     padding-bottom: env(safe-area-inset-bottom);
   }
-  /* Reset for the mobile shell */
   * {
     -webkit-font-smoothing: antialiased;
   }
   button {
     @apply active:scale-[0.98] transition-transform;
   }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
+    @apply outline-none ring-2 ring-coral ring-offset-2 ring-offset-cream;
+  }
 }
 
 @layer components {
-  /* Mobile-first app shell: centered column, max app width, full viewport */
   .app-shell {
     @apply mx-auto w-full max-w-app min-h-screen bg-cream relative;
   }
@@ -31,31 +33,37 @@
     @apply px-4;
   }
 
-  /* Bottom fixed navigation spacing */
   .pb-tabbar {
     padding-bottom: calc(64px + env(safe-area-inset-bottom));
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-coral px-5 py-3
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-coral px-5 py-3
            text-sm font-semibold text-white shadow-card transition
            hover:bg-coral-600 disabled:opacity-40 disabled:cursor-not-allowed;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-stone-200
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-stone-200
            bg-paper px-5 py-3 text-sm font-semibold text-ink transition hover:border-stone-300;
   }
 
   .chip {
-    @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium;
+    @apply inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-[11px] font-semibold;
   }
 
   .card {
-    @apply bg-paper rounded-2xl shadow-card overflow-hidden;
+    @apply bg-paper rounded-lg shadow-card overflow-hidden;
   }
 
-  /* Hide scrollbars for horizontal rails while keeping scrollability */
+  .product-photo {
+    @apply bg-stone-100;
+  }
+
+  .product-photo img {
+    @apply object-contain;
+  }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;

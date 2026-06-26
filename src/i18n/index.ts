@@ -15,8 +15,6 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   ko: '한국어'
 };
 
-// Default to English per product direction, but fall back to browser language
-// if it matches a supported locale.
 export function detectBrowserLocale(): Locale {
   if (typeof navigator === 'undefined') return 'en';
   const langs = [navigator.language, ...(navigator.languages ?? [])];
@@ -29,7 +27,6 @@ export function detectBrowserLocale(): Locale {
   return 'en';
 }
 
-// Persisted language wins; otherwise browser detection; otherwise English.
 function initialLocale(): Locale {
   try {
     const saved = localStorage.getItem('hanpick:locale');
@@ -37,7 +34,7 @@ function initialLocale(): Locale {
   } catch {
     /* ignore */
   }
-  return 'en'; // English is the primary default per product direction
+  return detectBrowserLocale();
 }
 
 i18n.use(initReactI18next).init({
@@ -50,7 +47,7 @@ i18n.use(initReactI18next).init({
   lng: initialLocale(),
   fallbackLng: 'en',
   interpolation: {
-    escapeValue: false // React already escapes
+    escapeValue: false
   },
   returnNull: false
 });
