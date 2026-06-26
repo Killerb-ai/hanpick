@@ -1,17 +1,13 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
-import zh from './locales/zh.json';
-import ja from './locales/ja.json';
 import ko from './locales/ko.json';
 import type { Locale } from '@/types';
 
-export const SUPPORTED_LOCALES: Locale[] = ['en', 'zh', 'ja', 'ko'];
+export const SUPPORTED_LOCALES: Locale[] = ['en', 'ko'];
 
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: 'English',
-  zh: '中文',
-  ja: '日本語',
   ko: '한국어'
 };
 
@@ -21,8 +17,6 @@ export function detectBrowserLocale(): Locale {
   for (const l of langs) {
     const lower = l.toLowerCase();
     if (lower.startsWith('ko')) return 'ko';
-    if (lower.startsWith('ja')) return 'ja';
-    if (lower.startsWith('zh')) return 'zh';
   }
   return 'en';
 }
@@ -40,8 +34,6 @@ function initialLocale(): Locale {
 i18n.use(initReactI18next).init({
   resources: {
     en: { translation: en },
-    zh: { translation: zh },
-    ja: { translation: ja },
     ko: { translation: ko }
   },
   lng: initialLocale(),

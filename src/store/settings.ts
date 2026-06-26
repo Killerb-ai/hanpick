@@ -39,7 +39,15 @@ export const useSettings = create<SettingsState>()(
         locale: s.locale,
         currency: s.currency,
         shipZone: s.shipZone
-      })
+      }),
+      merge: (persisted, current) => {
+        const saved = persisted as Partial<SettingsState>;
+        const locale = SUPPORTED_LOCALES.includes(saved.locale as Locale)
+          ? (saved.locale as Locale)
+          : current.locale;
+
+        return { ...current, ...saved, locale };
+      }
     }
   )
 );
@@ -48,10 +56,6 @@ function localeBCP(l: Locale): string {
   switch (l) {
     case 'ko':
       return 'ko-KR';
-    case 'ja':
-      return 'ja-JP';
-    case 'zh':
-      return 'zh-CN';
     default:
       return 'en-US';
   }

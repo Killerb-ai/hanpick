@@ -23,7 +23,7 @@ export function SettingsDrawer({ open, onClose }: { open: boolean; onClose: () =
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-400">
           {t('settings.language')}
         </p>
-        <div className="mb-5 grid grid-cols-4 gap-2">
+        <div className="mb-5 grid grid-cols-2 gap-2">
           {SUPPORTED_LOCALES.map((l) => (
             <button
               key={l}

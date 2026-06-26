@@ -1,7 +1,7 @@
 // Domain types for Han:Pick. The data layer (products.ts) implements these so a
 // real-data adapter can later replace the curated dummy dataset without touching UI.
 
-export type Locale = 'en' | 'zh' | 'ja' | 'ko';
+export type Locale = 'en' | 'ko';
 export type Currency = 'KRW' | 'USD';
 
 export type LocalizedString = Record<Locale, string>;

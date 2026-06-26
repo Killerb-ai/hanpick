@@ -4,8 +4,6 @@ const ALL: ShippingZone[] = ['KR', 'JP', 'CN', 'SEA', 'US', 'EU', 'GLOBAL'];
 
 const text = (en: string, ko = en): LocalizedString => ({
   en,
-  zh: en,
-  ja: en,
   ko
 });
 

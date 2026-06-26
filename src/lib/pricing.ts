@@ -28,10 +28,6 @@ export function localeBCP47(locale: Locale): string {
   switch (locale) {
     case 'ko':
       return 'ko-KR';
-    case 'ja':
-      return 'ja-JP';
-    case 'zh':
-      return 'zh-CN';
     default:
       return 'en-US';
   }
